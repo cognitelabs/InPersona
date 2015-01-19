@@ -1,0 +1,7 @@
+* Install VirtualBox
+* Install Vagrant
+* Run `vagrant up` to start the machine
+* Run `vagrant ssh` to log into the machine
+* Navigate to the app folder with `cd /vagrant`
+* Start the server `rails server`
+* Open http://localhost:3000

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InPersona</title>
+
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= yield :head %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="page-content">
+    <!-- Flash -->
+    <%- flash.each do |name, msg| -%>
+      <div class="row">
+        <div class="col-md-12">
+          <%= content_tag :div, msg, class: "col-xs-12 #{bootstrap_class_for(name)} alert" %>
+        </div>
+      </div>
+    <%- end -%>
+
+    <div class="row">
+      <%= yield %>
+    </div>
+  </div>
+
+</body>
+</html>
+
