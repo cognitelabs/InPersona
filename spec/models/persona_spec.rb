@@ -2,24 +2,24 @@
 #
 # Table name: personas
 #
-#  id                      :integer          not null, primary key
-#  persona_name            :text
-#  persona_role            :text
-#  persona_bio             :text
-#  persona_goals           :text
-#  persona_challenges      :text
-#  persona_solutions       :text
-#  tech_use                :text
-#  persona_devices         :text
-#  persona_os              :text
-#  persona_social_networks :text
-#  persona_gender          :text
-#  persona_age             :text
-#  persona_income          :text
-#  persona_education       :text
-#  user_id                 :integer
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
+#  id              :integer          not null, primary key
+#  name            :text
+#  role            :text
+#  bio             :text
+#  goals           :text
+#  challenges      :text
+#  solutions       :text
+#  tech_use        :text
+#  os              :text
+#  social_networks :text
+#  gender          :text
+#  age             :text
+#  income          :text
+#  education       :text
+#  user_id         :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  devices         :text             default("{}"), is an Array
 #
 
 require 'rails_helper'
@@ -38,21 +38,21 @@ RSpec.describe Persona, :type => :model do
   	end
 
   	it "should have a name" do
-  		@persona.persona_name = nil
+  		@persona.name = nil
   		@persona.valid?
-  		expect(@persona.errors[:persona_name]).to include("can't be blank")
+  		expect(@persona.errors[:name]).to include("can't be blank")
   	end		
 
   	it "should have a role" do
-  		@persona.persona_role = nil
+  		@persona.role = nil
   		@persona.valid?
-  		expect(@persona.errors[:persona_role]).to include("can't be blank")
+  		expect(@persona.errors[:role]).to include("can't be blank")
   	end
 
   	it "should have a bio" do
-  		@persona.persona_bio = nil
+  		@persona.bio = nil
   		@persona.valid?
-  		expect(@persona.errors[:persona_bio]).to include("can't be blank")
+  		expect(@persona.errors[:bio]).to include("can't be blank")
   	end
 
   	describe "a persona's tech use" do
@@ -61,10 +61,28 @@ RSpec.describe Persona, :type => :model do
   			@persona.valid?
   			expect(@persona).to be_valid
   		end
-  		it "should not values other than those in @tech_use" do
+  		it "should not values other than those in tech_use" do
 	  		@persona.tech_use = "super awesome"
 	  		@persona.valid?
 	  		expect(@persona.errors[:tech_use]).to include("is not included in the list")
+  		end
+  	end
+
+  	describe "a persona's devices" do
+  		it "should permit a listed device" do
+  			@persona.devices = "smartphone"
+  			@persona.valid?
+  			expect(@persona).to be_valid
+  		end
+  		it "should permit more than one listed device" do
+        @persona.devices = ["smartphone", "tablet"]
+        @persona.valid?
+  			expect(@persona).to be_valid
+  		end
+  		it "should not permit an unlisted device" do
+  			@persona.devices = "tardis"
+  			@persona.valid?
+  			expect(@persona.errors[:devices]).to include("is not included in the list")
   		end
   	end
   end

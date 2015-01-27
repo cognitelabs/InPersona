@@ -11,29 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150125010038) do
+ActiveRecord::Schema.define(version: 20150127033007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "personas", force: :cascade do |t|
-    t.text     "persona_name"
-    t.text     "persona_role"
-    t.text     "persona_bio"
-    t.text     "persona_goals"
-    t.text     "persona_challenges"
-    t.text     "persona_solutions"
+    t.text     "name"
+    t.text     "role"
+    t.text     "bio"
+    t.text     "goals"
+    t.text     "challenges"
+    t.text     "solutions"
     t.text     "tech_use"
-    t.text     "persona_devices"
-    t.text     "persona_os"
-    t.text     "persona_social_networks"
-    t.text     "persona_gender"
-    t.text     "persona_age"
-    t.text     "persona_income"
-    t.text     "persona_education"
+    t.text     "os"
+    t.text     "social_networks"
+    t.text     "gender"
+    t.text     "age"
+    t.text     "income"
+    t.text     "education"
     t.integer  "user_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.text     "devices",         default: [],              array: true
   end
 
   add_index "personas", ["user_id"], name: "index_personas_on_user_id", using: :btree
