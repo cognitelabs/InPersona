@@ -28,7 +28,11 @@ class Persona < ActiveRecord::Base
 
 	validates :name, :role, :bio, presence: true
 	validates :tech_use, :inclusion => {:in => VALID_TECH_USE }
-	validates :devices, :inclusion => {:in => VALID_DEVICES }
+	#validates :devices, :inclusion => {:in => VALID_DEVICES }, allow_blank: true
+	validates_each :devices do |record, attr, value|
+		string_value = value.pop.to_s
+		record.errors.add(attr, "is not included in the list") unless VALID_DEVICES.include?(string_value) || []
+	end
 
 
 end

@@ -31,7 +31,7 @@ FactoryGirl.define do
     challenges "Living so long"
     solutions "Kill him before he regenerates"
     tech_use "advanced"
-    devices "computer"
+    devices ["computer"]
     os "OS X"
     social_networks "Facebook, Twitter"
     gender "male"
