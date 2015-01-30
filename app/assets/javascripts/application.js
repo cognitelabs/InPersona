@@ -11,6 +11,9 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery_ujs
 //= require angular/angular
 //= require bootstrap/dist/js/bootstrap
 //= require moment/moment
+//= require personas.js
+//= require_tree .

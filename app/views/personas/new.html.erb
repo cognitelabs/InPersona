@@ -1,0 +1,36 @@
+<div class="col-md-12" >
+  <h1>Personas#new</h1>
+  <p>Find me in app/views/personas/new.html.erb</p>
+
+  <div ng-controller="PersonaController as persona">
+    Persona's Name* <br>
+    <input type="text" ng-model="name" placeholder="Enter a name">     {{name}}<br>
+    Persona's Job/Role* <br>
+    <input type="text" ng-model="job" placeholder="Enter a Job/Role">  {{job}}<br>
+    Persona's Bio*<br>
+    <textarea ng-model="bio" name="bio" cols='30' rows='7'> </textarea><br>{{bio}}<br>
+    Persona's Goals<br>
+    use * + space to make bullets<br>
+    <textarea name="persona.goals" ng-model="persona.goalsfield" ng-change="persona.GoalChange()"  cols='30' rows='7'> </textarea><br> 
+    <div>{{ persona.goalTitle }}</div>
+    <div ng-repeat="goal in persona.goals">
+      •{{ goal}}
+    </div>
+    Core Challenges<br>
+    use * + space to make bullets<br>
+    <textarea name="challenges" ng-model="persona.challlengesfield" ng-change="persona.ChallengeChange()" cols='30' rows='7'> </textarea><br>
+    <div>{{ persona.challengeTitle }}</div>
+    <div ng-repeat="challenge in persona.challenges">
+      •{{ challenge}}
+    </div>
+    How we help <br>
+    use * + space to make bullets<br>
+    <textarea name="help" cols='30' ng-model="persona.helpfield" ng-change="persona.helpChange()" rows='7'> </textarea><br>
+    <div>{{ persona.helpTitle }}</div>
+    <div ng-repeat="help in persona.helpItems">
+      •{{ help}}
+    </div>
+    
+
+  </div>
+</div>
