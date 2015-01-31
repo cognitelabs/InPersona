@@ -108,6 +108,20 @@
     <input type="radio" ng-model="persona.agerange" value=">55"> &gt 55 <br/>
     <div ng-show="persona.agerange"> <strong>Age Range:</strong> {{ persona.agerange }}</div>
     <br>
+    <div  ng-controller="dropdownCtrl as drop" class='pull-left'>   
+      <strong>Household Income</strong>
+      <ui-select ng-model="drop.chosenIncome.selected" ng-change="persona.selectIncome(drop.chosenIncome.selected)" search-enabled="false"  theme="bootstrap" style="width: 300px;">
+        <ui-select-match placeholder="Select your Household Income.">{{$select.selected}}</ui-select-match>
+        <ui-select-choices repeat="chosenIncome in drop.Incomes">
+          <div ng-bind-html="chosenIncome"></div>
+        </ui-select-choices>
+      </ui-select>
+
+      <p ng-show="drop.chosenIncome.selected"><strong>Household Income:</strong> {{drop.chosenIncome.selected}}</p>
+    </div>
+    <br>
+    <br>
+    <br><br><br>
     <strong>Educational Attainment</strong><br>
     <input type="radio" ng-model="persona.education" value="No Degree">  No Degree <br/>
     <input type="radio" ng-model="persona.education" value="High School"> High School <br/>
@@ -123,14 +137,5 @@
 
   <br>
   <br>
-  <div  ng-controller="DemoCtrl" class='pull-left'>   
-  <button class="btn btn-default btn-xs" ng-click="disableSearch()">Disable search</button> 
-  <p>Selected: {{person.selected.name}}</p>
-  <ui-select ng-model="person.selected" theme="bootstrap" ng-disabled="disabled" style="width: 300px;">
-    <ui-select-match placeholder="Select a person in the list or search his name/age...">{{$select.selected.name}}</ui-select-match>
-    <ui-select-choices repeat="person in people">
-      <div ng-bind-html="person.name"></div>
-    </ui-select-choices>
-  </ui-select>
-  </div>
+ 
 </div>

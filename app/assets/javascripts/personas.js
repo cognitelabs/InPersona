@@ -1,4 +1,4 @@
-var persona = angular.module('persona',['demo']);
+var persona = angular.module('persona',['dropdown']);
 
 persona.controller('PersonaController', [function () {
     this.sliderConfig = {
@@ -17,6 +17,11 @@ persona.controller('PersonaController', [function () {
     this.facebook = true;
     this.twitter = true;
 
+    this.income = ''
+
+  this.selectIncome = function(inc) {
+    this.income = inc;
+  }
 
   this.GoalChange = function() {
     this.goalsfield = this.goalsfield.replace(/\*/g, '• ');

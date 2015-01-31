@@ -18,6 +18,6 @@
 //= require bootstrap/dist/js/bootstrap
 //= require moment/moment
 //= require personas.js
-//= require demo.js
+//= require dropdown.js
 //= require select.js
 //= require_tree .
