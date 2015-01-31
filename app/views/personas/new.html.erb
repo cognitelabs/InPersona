@@ -120,4 +120,17 @@
     <input type="radio" ng-model="persona.education" value="Professional Degree"> Professional Degree (JD, MBA) <br/>
     <div ng-show="persona.education"> <strong>Educational Attainment:</strong> {{ persona.education }}</div>
   </div>
+
+  <br>
+  <br>
+  <div  ng-controller="DemoCtrl" class='pull-left'>   
+  <button class="btn btn-default btn-xs" ng-click="disableSearch()">Disable search</button> 
+  <p>Selected: {{person.selected.name}}</p>
+  <ui-select ng-model="person.selected" theme="bootstrap" ng-disabled="disabled" style="width: 300px;">
+    <ui-select-match placeholder="Select a person in the list or search his name/age...">{{$select.selected.name}}</ui-select-match>
+    <ui-select-choices repeat="person in people">
+      <div ng-bind-html="person.name"></div>
+    </ui-select-choices>
+  </ui-select>
+  </div>
 </div>

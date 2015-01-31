@@ -1,4 +1,4 @@
-var persona = angular.module('persona',[]);
+var persona = angular.module('persona',['demo']);
 
 persona.controller('PersonaController', [function () {
     this.sliderConfig = {

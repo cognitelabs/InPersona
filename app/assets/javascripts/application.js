@@ -14,7 +14,10 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require angular/angular
+//= require angular-sanitize.js
 //= require bootstrap/dist/js/bootstrap
 //= require moment/moment
 //= require personas.js
+//= require demo.js
+//= require select.js
 //= require_tree .
