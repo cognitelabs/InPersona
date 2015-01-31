@@ -9,6 +9,14 @@ persona.controller('PersonaController', [function () {
     };
     this.message = 'Regular';
 
+    this.smartphone = true;
+    this.computer = true;
+    this.tablet = true;
+    this.osx = true;
+    this.ios = true;
+    this.facebook = true;
+    this.twitter = true;
+
 
   this.GoalChange = function() {
     this.goalsfield = this.goalsfield.replace(/\*/g, '• ');

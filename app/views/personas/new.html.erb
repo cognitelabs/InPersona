@@ -37,6 +37,87 @@
     <br>        
     <div>Technology use {{persona.message}}</div>
     <br>
-
+    Devices
+    <br>
+    <input type="checkbox" ng-model="persona.smartphone"> smartphone
+    <br>
+    <input type="checkbox" ng-model="persona.computer"> computer
+    <br>
+    <input type="checkbox" ng-model="persona.tablet"> tablet
+    <br>
+    Devices<br> 
+    <div ng-show="persona.smartphone">Picture of a Smartphone</div>
+    <div ng-show="persona.computer">Picture of a Computer</div>
+    <div ng-show="persona.tablet">Picture of a Tablet</div>
+    <br>
+    <br>
+    Operating Systems
+    <br>
+    <input type="checkbox" ng-model="persona.windows7"> Windows 7
+    <br>
+    <input type="checkbox" ng-model="persona.windows8"> Windows 8+
+    <br>
+    <input type="checkbox" ng-model="persona.osx"> OS X
+    <br>
+    <input type="checkbox" ng-model="persona.ios"> iOS
+    <br>
+    <input type="checkbox" ng-model="persona.android"> Android
+    <br>
+    <input type="checkbox" ng-model="persona.ubuntu"> Ubuntu
+    <br>
+    Operating Systems<br>
+    <div ng-show="persona.windows7">Picture of Windows 7</div>
+    <div ng-show="persona.windows8">Picture of Windows 8</div>
+    <div ng-show="persona.osx">Picture of OS X</div>
+    <div ng-show="persona.ios">Picture of iOS</div>
+    <div ng-show="persona.android">Picture of Android</div>
+    <div ng-show="persona.ubuntu">Picture of Ubuntu</div>
+    <br>
+    Social Networks
+    <br>
+    <input type="checkbox" ng-model="persona.facebook"> Facebook
+    <br>
+    <input type="checkbox" ng-model="persona.twitter"> Twitter
+    <br>
+    <input type="checkbox" ng-model="persona.linkedin" > LinkedIn
+    <br>
+    <input type="checkbox" ng-model="persona.googleplus"> Google Plus
+    <br>
+    <input type="checkbox" ng-model="persona.pinterest"> Pinterest
+    <br>
+    Social Networks<br>
+    <div ng-show="persona.facebook">Picture of Facebook</div>
+    <div ng-show="persona.twitter">Picture of Twitter</div>
+    <div ng-show="persona.linkedin">Picture of LinkedIn</div>
+    <div ng-show="persona.googleplus">Picture of Google Plus</div>
+    <div ng-show="persona.pinterest">Picture of Pinterest</div>
+    <br>
+    <strong>Gender</strong><br>
+    <input type="radio" ng-model="persona.gender" value="Male">  male <br/>
+    <input type="radio" ng-model="persona.gender" value="Female"> female <br/>
+    <div ng-show="persona.gender"> <strong>Gender:</strong> {{ persona.gender }}</div>
+    <br>
+    <strong>Age Range</strong><br>
+    <input type="radio" ng-model="persona.agerange" value="<10">  &lt 10 <br/>
+    <input type="radio" ng-model="persona.agerange" value="10-13"> 10-13 <br/>
+    <input type="radio" ng-model="persona.agerange" value="14-17">  14-17 <br/>
+    <input type="radio" ng-model="persona.agerange" value="18-25"> 18-25 <br/>
+    <input type="radio" ng-model="persona.agerange" value="25-30">  25-30 <br/>
+    <input type="radio" ng-model="persona.agerange" value="30-40"> 30-40 <br/>
+    <input type="radio" ng-model="persona.agerange" value="40-55">  40-55 <br/>
+    <input type="radio" ng-model="persona.agerange" value=">55"> &gt 55 <br/>
+    <div ng-show="persona.agerange"> <strong>Age Range:</strong> {{ persona.agerange }}</div>
+    <br>
+    <strong>Educational Attainment</strong><br>
+    <input type="radio" ng-model="persona.education" value="No Degree">  No Degree <br/>
+    <input type="radio" ng-model="persona.education" value="High School"> High School <br/>
+    <input type="radio" ng-model="persona.education" value="Some College">  Some College <br/>
+    <input type="radio" ng-model="persona.education" value="Bachelor's Degree"> Bachelor's Degree <br/>
+    <input type="radio" ng-model="persona.education" value="Associate's Degree"> Associate's Degree<br/>
+    <input type="radio" ng-model="persona.education" value="Master's Degree">  Master's Degree <br/>
+    <input type="radio" ng-model="persona.education" value="Some Grad School"> Some Grad School <br/>
+    <input type="radio" ng-model="persona.education" value="Advanced Degree"> Advanced Degree (PhD,EdD) <br/>
+    <input type="radio" ng-model="persona.education" value="Professional Degree"> Professional Degree (JD, MBA) <br/>
+    <div ng-show="persona.education"> <strong>Educational Attainment:</strong> {{ persona.education }}</div>
   </div>
 </div>
