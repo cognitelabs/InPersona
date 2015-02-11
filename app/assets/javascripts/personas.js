@@ -1,6 +1,6 @@
 var persona = angular.module('persona',['dropdown','angularFileUpload']);
 
-persona.controller('PersonaController', [function (FileUploader) {
+persona.controller('PersonaController', ['FileUploader','photoFactory',function (FileUploader, photoFactory) {
     this.sliderConfig = {
         min: 0,
         max: 10,
@@ -10,12 +10,16 @@ persona.controller('PersonaController', [function (FileUploader) {
     
     this.persona = {};
     this.persona.message = 'Regular';
-
-    this.uploadPhoto = function() {
-      console.log("Show modal");
-      this.uploader = new FileUploader({url: '/avatar'});
+    this.uploadAvatar = function() {
+      this.uploader.uploadAll();
     }
-  
+
+    var ctrl = this;
+    this.uploader = new FileUploader({url: '/avatar'});
+    this.uploader.onSuccessItem = function(fileItem, response, status, headers) {
+         ctrl.persona.avatar_id = response.avatar_id;
+         photoFactory.setPhoto(response.avatar_url);
+        };
 
    this.publish = function() {
 
@@ -55,7 +59,23 @@ persona.controller('PersonaController', [function (FileUploader) {
   }; 
 
 
+
 }]);
+
+persona.factory('photoFactory', function ($rootScope) {
+  var sharedService = {};
+  //sharedService.showModal = false;
+  sharedService.chosenPhoto = '/uploads/avatar/avatar/18/IMG_2027.JPG';
+  sharedService.setPhoto = function(photo) {
+        this.chosenPhoto = photo;
+      //  this.showModal = !this.showModal;
+        this.broadcastItem();
+     };
+  sharedService.broadcastItem = function() {
+    $rootScope.$broadcast('handleBroadcast');
+  }
+  return sharedService;
+});
 
 persona.directive("slider", function() {
     return {
@@ -94,9 +114,15 @@ persona.directive("slider", function() {
     }
 });
 
-persona.controller('MainCtrl', function ($scope) {
+persona.controller('MainCtrl', function ($scope,photoFactory) {
+
+    $scope.$on('handleBroadcast', function() {
+      $scope.chosenPhoto = photoFactory.chosenPhoto;
+      $scope.showModal = !$scope.showModal;
+    });
+
     $scope.showModal = false;
-    $scope.chosenPhoto = 'http://vaival.com/henrik/stories/images/thumbnail.gif';
+    $scope.chosenPhoto = '/uploads/avatar/avatar/18/IMG_2027.JPG';
     $scope.toggleModal = function(){
         $scope.showModal = !$scope.showModal;
     };
@@ -109,6 +135,8 @@ persona.controller('MainCtrl', function ($scope) {
         $scope.chosenPhoto = photo;
         $scope.showModal = !$scope.showModal;
      };
+
+
 
   });
 

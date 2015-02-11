@@ -75,7 +75,7 @@
 			    <input type="radio" ng-model="pCtrl.persona.agerange" value=">55"> &gt 55 <br/>	
 			    <div  class='pull-left'>   
 			      <strong>Household Income</strong>
-			      <ui-select ng-model="drop.chosenIncome.selected" ng-change="pCtrl..selectIncome(drop.chosenIncome.selected)" search-enabled="false"  theme="bootstrap" style="width: 300px;">
+			      <ui-select ng-model="drop.chosenIncome.selected" ng-change="pCtrl.selectIncome(drop.chosenIncome.selected)" search-enabled="false"  theme="bootstrap" style="width: 300px;">
 			        <ui-select-match placeholder="Select your Household Income.">{{$select.selected}}</ui-select-match>
 			        <ui-select-choices repeat="chosenIncome in drop.Incomes">
 			          <div ng-bind-html="chosenIncome"></div>
@@ -166,8 +166,8 @@
         </a>
         </div>
         <div class="col-md-3">
-        <input type="file" nv-file-select uploader="uploader"/><br/>
-        <button ng-click="pCtrl.uploadPhoto()">Submit Photo</button>
+        <input type="file" nv-file-select uploader="pCtrl.uploader"/><br/>
+        <button ng-click="pCtrl.uploadAvatar()">Upload Photo</button>
         </div>
       </div>                  
       </modal>

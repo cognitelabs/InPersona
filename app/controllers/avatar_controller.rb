@@ -3,8 +3,8 @@ class AvatarController < ApplicationController
     avatar = Avatar.new()
     avatar.avatar = params[:file]
     avatar.save
-    # respond_to do |format|
-    #   format.json { render json: avatar }
-    # end
+    respond_to do |format|
+      format.json { render json: { :avatar_id => avatar.id, :avatar_url => avatar.avatar.url  } }
+    end
   end
 end
