@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
+  get 'avatar/upload_avatar'
+
   get 'pages/home'
 
   devise_for :users
 
   resource :persona, only: [:new,:create]
+
+  post 'avatar' => 'avatar#upload_avatar'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -14,6 +14,8 @@ gem 'devise'
 gem 'cancancan'
 gem 'less-rails'
 gem 'jquery-ui-rails'
+gem 'angularjs-file-upload-rails', '~> 1.1.6'
+gem 'carrierwave'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

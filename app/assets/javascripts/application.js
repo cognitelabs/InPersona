@@ -20,4 +20,5 @@
 //= require personas.js
 //= require dropdown.js
 //= require select.js
+//= require angularjs-file-upload
 //= require_tree .
