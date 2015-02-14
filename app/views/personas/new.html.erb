@@ -5,8 +5,10 @@
     <div ng-controller="MainCtrl" class="container">
 	    <div   ng-controller="dropdownCtrl as drop"  class="row">
 	    	<div class="col-md-4">
-	    		Persona's Picture*<br>
-      		<button ng-click="toggleModal()" class="btn btn-default">Upload Picture </button>  
+	    		<label >Persona's Picture*</label>
+	    	  <img title="It's important to upload a persona photo" data-toggle="tooltip" data-position="top" tooltip ng-src="http://pnsn.org/assets/small_info_icon-ccc447ab652816918f7c7741179983c7.png">
+	    		<br>
+      		<button ng-click="toggleModal()" class="btn btn-default" >Upload Picture </button>  
        		<br>Persona's Name* <br>
     			<input type="text" ng-model="pCtrl.persona.name" placeholder="Enter a name"> 
  			    <br>Persona's Job/Role* <br>
@@ -97,7 +99,7 @@
 	    	<div class="col-md-4"> 
     			<img ng-src="{{chosenPhoto}}" alt=""><br><br>
 					<div  ng-controller="dropdownCtrl as drop" class='pull-left'>   
-						<ui-select ng-model="drop.publishOption.selected" ng-change="pCtrl.selectPublishOption(drop.publishOption.selected)" search-enabled="false"  theme="bootstrap" style="width: 150px;">
+						<ui-select ng-disabled="!pCtrl.persona.name || !pCtrl.persona.job || !pCtrl.persona.bio || !pCtrl.persona.goals" ng-model="drop.publishOption.selected" ng-change="pCtrl.selectPublishOption(drop.publishOption.selected)" search-enabled="false"  theme="bootstrap" style="width: 150px;">
 						<ui-select-match placeholder="Publish">{{$select.selected}}</ui-select-match>
 						<ui-select-choices repeat="option in drop.publishOptions">
 						  <div ng-bind-html="option" ng-click="drop.setPrintOption(option)"></div>
@@ -147,7 +149,7 @@
 			    <div ng-show="pCtrl.persona.googleplus">Picture of Google Plus</div>
 			    <div ng-show="pCtrl.persona.pinterest">Picture of Pinterest</div>
 			    <br>
-			    <h3>Demographic Profile</h3>	
+			    <h3 ng-show="pCtrl.persona.gender || pCtrl.persona.agerange || drop.chosenIncome.selected || pCtrl.persona.education">Demographic Profile</h3>	
 			    <br>		
 			    <div ng-show="pCtrl.persona.gender"> <strong>Gender:</strong> {{ pCtrl.persona.gender }}</div>
    			  <div ng-show="pCtrl.persona.agerange"> <strong>Age Range:</strong> {{ pCtrl.persona.agerange }}</div>
