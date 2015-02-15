@@ -1,6 +1,6 @@
 var persona = angular.module('persona',['dropdown','angularFileUpload']);
 
-persona.controller('PersonaController', ['FileUploader','photoFactory',function (FileUploader, photoFactory) {
+persona.controller('PersonaController', ['FileUploader','photoFactory','personaFactory',function (FileUploader, photoFactory, personaFactory) {
     this.sliderConfig = {
         min: 0,
         max: 10,
@@ -22,7 +22,65 @@ persona.controller('PersonaController', ['FileUploader','photoFactory',function 
         };
 
    this.publish = function() {
-
+      var persona_post = {};
+      persona_post.devices = [];
+      persona_post.operating_systems = [];
+      persona_post.social_networks = [];
+      if (this.persona.smartphone == true) {
+        persona_post.devices.push("smartphone");
+      };
+      if (this.persona.tablet == true) {
+        persona_post.devices.push("tablet");
+      };
+      if (this.persona.computer == true) {
+        persona_post.devices.push("computer");
+      };
+      if (this.persona.windows7 == true) {
+        persona_post.operating_systems.push("windows7");
+      };
+      if (this.persona.windows8 == true) {
+        persona_postoperating_systems.push("windows8");
+      };
+      if (this.persona.osx == true) {
+        persona_post.operating_systems.push("osx");
+      };
+      if (this.persona.ios == true) {
+        persona_post.operating_systems.push("ios");
+      };
+      if (this.persona.android == true) {
+        persona_post.operating_systems.push("android");
+      };
+      if (this.persona.ubuntu == true) {
+        persona_post.operating_systems.push("ubuntu");
+      };
+      if (this.persona.facebook == true) {
+        persona_post.social_networks.push("facebook");
+      };
+      if (this.persona.twitter == true) {
+        persona_post.social_networks.push("twitter");
+      };
+      if (this.persona.linkedin == true) {
+        persona_post.social_networks.push("linkedin");
+      };
+      if (this.persona.googleplus == true) {
+        persona_post.social_networks.push("googleplus");
+      };
+      if (this.persona.pinterest == true) {
+        persona_post.social_networks.push("pinterest");
+      };
+      persona_post.income = this.persona.income;
+      persona_post.goalsfield = this.persona.goalsfield;
+      persona_post.challengesfield = this.persona.challengesfield;
+      persona_post.helpfield = this.persona.helpfield;
+      persona_post.avatar_id = this.persona.avatar_id;
+      persona_post.name = this.persona.name;
+      persona_post.job = this.persona.job;
+      persona_post.bio = this.persona.bio;
+      persona_post.gender = this.persona.gender;
+      persona_post.agerange = this.persona.agerange;
+      persona_post.education = this.persona.education;
+      persona_post.tech_use = this.persona.message;
+      personaFactory.create(persona_post);
    };
 
     this.persona.smartphone = true;
@@ -46,8 +104,8 @@ persona.controller('PersonaController', ['FileUploader','photoFactory',function 
     this.persona.goals = temp;
   }; 
   this.ChallengeChange = function() {
-    this.persona.challlengesfield= this.persona.challlengesfield.replace(/\*/g, '• ');
-    var temp  = this.persona.challlengesfield.split("•");
+    this.persona.challengesfield= this.persona.challengesfield.replace(/\*/g, '• ');
+    var temp  = this.persona.challengesfield.split("•");
     this.persona.challengeTitle = temp.shift();
     this.persona.challenges = temp;
   }; 
@@ -76,6 +134,18 @@ persona.factory('photoFactory', function ($rootScope) {
   }
   return sharedService;
 });
+
+persona.factory('personaFactory', ['$http', function($http) {
+  var fact = {
+    personas: []
+  };
+  fact.create = function(persona) {
+    return $http.post('/persona.json',persona).success(function(data) {
+      
+    });
+    };
+  return fact;  
+}]);
 
 persona.directive("slider", function() {
     return {

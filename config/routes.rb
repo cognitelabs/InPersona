@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  
   resource :persona, only: [:new,:create]
 
   post 'avatar' => 'avatar#upload_avatar'
