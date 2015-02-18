@@ -202,6 +202,20 @@ persona.controller('PersonaControllerShow', ['FileUploader','photoFactory','pers
       if (social_networks.indexOf('googleplus') != -1) {
         this.persona.googleplus = true;
       };
+      this.persona.goalsfield = this.persona.goalsfield.replace(/\*/g, '• ');
+      var temp  = this.persona.goalsfield.split("•");
+      this.persona.goalTitle = temp.shift();
+      this.persona.goals = temp;
+
+      this.persona.challengesfield= this.persona.challengesfield.replace(/\*/g, '• ');
+      var temp2  = this.persona.challengesfield.split("•");
+      this.persona.challengeTitle = temp2.shift();
+      this.persona.challenges = temp2;
+
+      this.persona.helpfield= this.persona.helpfield.replace(/\*/g, '• ');
+      var temp3  = this.persona.helpfield.split("•");
+      this.persona.helpTitle = temp3.shift();
+      this.persona.helpItems = temp3;
 
 
     };
@@ -283,6 +297,8 @@ persona.controller('PersonaControllerShow', ['FileUploader','photoFactory','pers
       persona_post.per_id = this.persona.per_id;
       personaFactory.updatePersona(persona_post);
    };
+
+    
 
   this.selectIncome = function(inc) {
     this.persona.income = inc;
