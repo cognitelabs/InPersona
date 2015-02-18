@@ -5,8 +5,9 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  
-  resource :persona, only: [:new,:create]
+
+  resources :personas, only: [:new,:create, :show, :index, :update]
+
 
   post 'avatar' => 'avatar#upload_avatar'
   # The priority is based upon order of creation: first created -> highest priority.

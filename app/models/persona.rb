@@ -25,6 +25,7 @@
 class Persona < ActiveRecord::Base
 	VALID_TECH_USE = ["Novice", "Regular", "Advanced"]
 	VALID_DEVICES = ["smartphone", "computer", "tablet"]
+  belongs_to :avatar
 	validates :name, :role, :bio, presence: true
 	validates :tech_use, :inclusion => {:in => VALID_TECH_USE }
 	# validates :devices, :inclusion => {:in => VALID_DEVICES }, allow_blank: true

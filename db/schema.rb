@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150215093634) do
+ActiveRecord::Schema.define(version: 20150216191603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,9 +41,24 @@ ActiveRecord::Schema.define(version: 20150215093634) do
     t.string   "os",              default: [],              array: true
     t.string   "social_networks", default: [],              array: true
     t.integer  "avatar_id"
+    t.string   "access_level"
   end
 
   add_index "personas", ["user_id"], name: "index_personas_on_user_id", using: :btree
+
+  create_table "team_memberships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

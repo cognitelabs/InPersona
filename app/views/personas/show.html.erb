@@ -1,0 +1,187 @@
+<div class="col-md-12" >
+  <div class="container" ng-controller="PersonaControllerShow as pCtrl"  ng-init="pCtrl.init('<%= @p.name %>','<%= @p.role %>','<%= @p.bio %>','<%= @p.goals %>','<%= @p.challenges %>','<%= @p.solutions %>','<%= @p.tech_use %>','<%= @p.gender %>','<%= @p.age %>','<%= @p.income %>','<%= @edu %>','<%= @p.devices %>','<%=  @p.os %>','<%=  @p.social_networks %>','<%= @p.access_level %>','<%= @avatar_url %>','<%= @p.avatar_id %>','<%= @p.id %>')">
+    <h1>Showing already generated persona</h1>
+    
+
+    <div ng-controller="MainCtrl" class="container" ng-init="chosenPhoto ='<%= @avatar_url %>'">
+      <div   ng-controller="dropdownCtrl as drop"  ng-init="drop.init('<%= @p.income %>')"  class="row">
+        <div class="col-md-4" ng-show="pCtrl.persona.level == 'Public'">
+          <label >Persona's Picture*</label>
+          <img title="It's important to upload a persona photo" data-toggle="tooltip" data-position="top" tooltip ng-src="http://pnsn.org/assets/small_info_icon-ccc447ab652816918f7c7741179983c7.png">
+          <br>
+          <button ng-click="toggleModal()" class="btn btn-default" >Upload Picture </button>  
+          <br>Persona's Name* <br>
+          <input type="text" ng-model="pCtrl.persona.name" placeholder="Enter a name"> 
+          <br>Persona's Job/Role* <br>
+          <input type="text" ng-model="pCtrl.persona.job" placeholder="Enter a Job/Role"> 
+          <br>Persona's Bio*<br>
+          <textarea ng-model="pCtrl.persona.bio" name="bio" cols='30' rows='7'> </textarea>
+          <br>Persona's Goals<br>
+          use * + space to make bullets<br>
+          <textarea name="pCtrl.persona.goals" ng-model="pCtrl.persona.goalsfield" ng-change="pCtrl.GoalChange()"  cols='30' rows='7'> </textarea>
+          <br>Core Challenges<br>
+          use * + space to make bullets<br>
+          <textarea name="challenges" ng-model="pCtrl.persona.challengesfield" ng-change="pCtrl.ChallengeChange()" cols='30' rows='7'> </textarea>
+          <br>How we help<br>
+          use * + space to make bullets<br>
+          <textarea name="help" cols='30' ng-model="pCtrl.persona.helpfield" ng-change="pCtrl.helpChange()" rows='7'> </textarea>
+          <div>
+          Technology Use
+          </div>
+          <div slider config="pCtrl.sliderConfig" model="pCtrl.persona.price" class="cdbl-slider"></div>
+          <br>
+          Devices
+          <br>
+          <input type="checkbox" ng-model="pCtrl.persona.smartphone"> smartphone
+          <br>
+          <input type="checkbox" ng-model="pCtrl.persona.computer"> computer
+          <br>
+          <input type="checkbox" ng-model="pCtrl.persona.tablet"> tablet
+          <br>
+          Operating Systems
+          <br>
+          <input type="checkbox" ng-model="pCtrl.persona.windows7"> Windows 7
+          <br>
+          <input type="checkbox" ng-model="pCtrl.persona.windows8"> Windows 8+
+          <br>
+          <input type="checkbox" ng-model="pCtrl.persona.osx"> OS X
+          <br>
+          <input type="checkbox" ng-model="pCtrl.persona.ios"> iOS
+          <br>
+          <input type="checkbox" ng-model="pCtrl.persona.android"> Android
+          <br>
+          <input type="checkbox" ng-model="pCtrl.persona.ubuntu"> Ubuntu
+          <br>         
+          Social Networks
+          <br>
+          <input type="checkbox" ng-model="pCtrl.persona.facebook"> Facebook
+          <br>
+          <input type="checkbox" ng-model="pCtrl.persona.twitter"> Twitter
+          <br>
+          <input type="checkbox" ng-model="pCtrl.persona.linkedin" > LinkedIn
+          <br>
+          <input type="checkbox" ng-model="pCtrl.persona.googleplus"> Google Plus
+          <br>
+          <input type="checkbox" ng-model="pCtrl.persona.pinterest"> Pinterest
+          <br>      
+          <strong>Gender</strong><br>
+          <input type="radio" ng-model="pCtrl.persona.gender" value="Male">  male <br/>
+          <input type="radio" ng-model="pCtrl.persona.gender" value="Female"> female <br/>    
+          <strong>Age Range</strong><br>
+          <input type="radio" ng-model="pCtrl.persona.agerange" value="<10">  &lt 10 <br/>
+          <input type="radio" ng-model="pCtrl.persona.agerange" value="10-13"> 10-13 <br/>
+          <input type="radio" ng-model="pCtrl.persona.agerange" value="14-17">  14-17 <br/>
+          <input type="radio" ng-model="pCtrl.persona.agerange" value="18-25"> 18-25 <br/>
+          <input type="radio" ng-model="pCtrl.persona.agerange" value="25-30">  25-30 <br/>
+          <input type="radio" ng-model="pCtrl.persona.agerange" value="30-40"> 30-40 <br/>
+          <input type="radio" ng-model="pCtrl.persona.agerange" value="40-55">  40-55 <br/>
+          <input type="radio" ng-model="pCtrl.persona.agerange" value=">55"> &gt 55 <br/> 
+          <div  class='pull-left'>   
+            <strong>Household Income</strong>
+            <ui-select ng-model="drop.chosenIncome.selected" ng-change="pCtrl.selectIncome(drop.chosenIncome.selected)" search-enabled="false"  theme="bootstrap" style="width: 300px;">
+              <ui-select-match placeholder="Select your Household Income.">{{$select.selected}}</ui-select-match>
+              <ui-select-choices repeat="chosenIncome in drop.Incomes">
+                <div ng-bind-html="chosenIncome"></div>
+              </ui-select-choices>
+            </ui-select>
+          </div>    
+          <strong>Educational Attainment</strong><br>
+          <input type="radio" ng-model="pCtrl.persona.education" value="noDegree">  No Degree <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="highSchool"> High School <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="someCollege">  Some College <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="bachelorDegree"> Bachelor's Degree <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="associateDegree"> Associate's Degree<br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="masterDegree">  Master's Degree <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="someGradSchool"> Some Grad School <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="advancedDegree"> Advanced Degree (PhD,EdD) <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="professionalDegree"> Professional Degree (JD, MBA) <br/>
+          <strong>Persona availabilty</strong><br>
+          <input type="radio" ng-model="pCtrl.persona.level" value="Public">Public<br/>
+          <input type="radio" ng-model="pCtrl.persona.level" value="Private">Private<br/>                                                          
+
+        </div>
+        <div class="col-md-4" > 
+          <img ng-src="{{chosenPhoto}}" alt=""><br><br>
+          <div  ng-controller="dropdownCtrl as drop"  ng-show="pCtrl.persona.level == 'Public'" class='pull-left'>   
+            <ui-select ng-disabled="!pCtrl.persona.name || !pCtrl.persona.job || !pCtrl.persona.bio || !pCtrl.persona.goals || !pCtrl.persona.accessLevel" ng-model="drop.publishOption.selected" ng-change="pCtrl.selectPublishOption(drop.publishOption.selected)" search-enabled="false"  theme="bootstrap" style="width: 150px;">
+            <ui-select-match placeholder="Publish">{{$select.selected}}</ui-select-match>
+            <ui-select-choices repeat="option in drop.publishOptions">
+              <div ng-bind-html="option" ng-click="drop.setPrintOption(option)"></div>
+            </ui-select-choices>
+            </ui-select>        
+            The print option is {{drop.print}}
+            <button ng-click="pCtrl.publishUpdate()">Update the persona</button>
+          </div>          
+        </div>
+        <div class="col-md-4">            
+          <h3><strong>{{pCtrl.persona.name}}</strong></h3> 
+          <h4><strong>{{pCtrl.persona.job}}</strong></h4> 
+          <div>{{pCtrl.persona.bio}}</div> <br><br>
+          <h4 ng-show="pCtrl.persona.goalTitle"><strong>Goals</strong></h4>
+          <div>{{ pCtrl.persona.goalTitle }}</div>
+          <div ng-repeat="goal in pCtrl.persona.goals">
+            •{{ goal}}
+          </div> 
+          <h4 ng-show="pCtrl.persona.challengeTitle"><strong>Core Challenges</strong></h4>
+          <div>{{ pCtrl.persona.challengeTitle }}</div>
+          <div ng-repeat="challenge in pCtrl.persona.challenges">
+            •{{ challenge}}
+          </div>
+          <h4 ng-show="pCtrl.persona.helpTitle"><strong>How We Help</strong></h4>
+          <div>{{ pCtrl.persona.helpTitle }}</div>
+          <div ng-repeat="help in pCtrl.persona.helpItems">
+          •{{ help}}
+          </div>
+          <br>
+          <div>Technology use - {{pCtrl.persona.message}}</div>
+          <br>Devices<br> 
+          <div ng-show="pCtrl.persona.smartphone">Picture of a Smartphone</div>
+          <div ng-show="pCtrl.persona.computer">Picture of a Computer</div>
+          <div ng-show="pCtrl.persona.tablet">Picture of a Tablet</div>
+          <br>  
+          Operating Systems<br>
+          <div ng-show="pCtrl.persona.windows7">Picture of Windows 7</div>
+          <div ng-show="pCtrl.persona.windows8">Picture of Windows 8</div>
+          <div ng-show="pCtrl.persona.osx">Picture of OS X</div>
+          <div ng-show="pCtrl.persona.ios">Picture of iOS</div>
+          <div ng-show="pCtrl.persona.android">Picture of Android</div>
+          <div ng-show="pCtrl.persona.ubuntu">Picture of Ubuntu</div>
+          <br>
+          Social Networks<br>
+          <div ng-show="pCtrl.persona.facebook">Picture of Facebook</div>
+          <div ng-show="pCtrl.persona.twitter">Picture of Twitter</div>
+          <div ng-show="pCtrl.persona.linkedin">Picture of LinkedIn</div>
+          <div ng-show="pCtrl.persona.googleplus">Picture of Google Plus</div>
+          <div ng-show="pCtrl.persona.pinterest">Picture of Pinterest</div>
+          <br>
+          <div ng-show="pCtrl.persona.level"><strong>Persona Accessibility:</strong> {{ pCtrl.persona.level}}</div>     
+          <br>
+          <h3 ng-show="pCtrl.persona.gender || pCtrl.persona.agerange || drop.chosenIncome.selected || pCtrl.persona.education">Demographic Profile</h3>  
+          <br>    
+          <div ng-show="pCtrl.persona.gender"> <strong>Gender:</strong> {{ pCtrl.persona.gender }}</div>
+          <div ng-show="pCtrl.persona.agerange"> <strong>Age Range:</strong> {{ pCtrl.persona.agerange }}</div>
+          <div>
+            <p ng-show="drop.chosenIncome.selected"><strong>Household Income:</strong> {{drop.chosenIncome.selected}}</p>
+          </div>  
+          <div ng-show="pCtrl.persona.education"> <strong>Educational Attainment:</strong> {{ pCtrl.persona.education }}</div>     
+        </div>
+        
+
+      </div>    
+           
+      <modal title="Choose/Upload Photo" visible="showModal">
+      <div class="row">
+        <div class="col-md-7">
+        <a ng-repeat="photo in urls" ng-click="choose">
+        <img ng-src="{{photo}}" ng-click="setPhoto(photo)">
+        </a>
+        </div>
+        <div class="col-md-3">
+        <input type="file" nv-file-select uploader="pCtrl.uploader"/><br/>
+        <button ng-click="pCtrl.uploadAvatar()">Upload Photo</button>
+        </div>
+      </div>                  
+      </modal>
+    </div>   
+  </div> 
+</div>

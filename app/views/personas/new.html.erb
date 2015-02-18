@@ -85,28 +85,31 @@
 			      </ui-select>
 			    </div>		
 			    <strong>Educational Attainment</strong><br>
-			    <input type="radio" ng-model="pCtrl.persona.education" value="No Degree">  No Degree <br/>
-			    <input type="radio" ng-model="pCtrl.persona.education" value="High School"> High School <br/>
-			    <input type="radio" ng-model="pCtrl.persona.education" value="Some College">  Some College <br/>
-			    <input type="radio" ng-model="pCtrl.persona.education" value="Bachelor's Degree"> Bachelor's Degree <br/>
-			    <input type="radio" ng-model="pCtrl.persona.education" value="Associate's Degree"> Associate's Degree<br/>
-			    <input type="radio" ng-model="pCtrl.persona.education" value="Master's Degree">  Master's Degree <br/>
-			    <input type="radio" ng-model="pCtrl.persona.education" value="Some Grad School"> Some Grad School <br/>
-			    <input type="radio" ng-model="pCtrl.persona.education" value="Advanced Degree"> Advanced Degree (PhD,EdD) <br/>
-			    <input type="radio" ng-model="pCtrl.persona.education" value="Professional Degree"> Professional Degree (JD, MBA) <br/>			    	    		             
+          <input type="radio" ng-model="pCtrl.persona.education" value="noDegree">  No Degree <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="highSchool"> High School <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="someCollege">  Some College <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="bachelorDegree"> Bachelor's Degree <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="associateDegree"> Associate's Degree<br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="masterDegree">  Master's Degree <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="someGradSchool"> Some Grad School <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="advancedDegree"> Advanced Degree (PhD,EdD) <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="professionalDegree"> Professional Degree (JD, MBA) <br/>
+			    <strong>Persona availabilty</strong><br>
+			    <input type="radio" ng-model="pCtrl.persona.level" value="Public">Public<br/>
+			    <input type="radio" ng-model="pCtrl.persona.level" value="Private">Private<br/>   	    		             			    	    		             
 
 	    	</div>
 	    	<div class="col-md-4"> 
     			<img ng-src="{{chosenPhoto}}" alt=""><br><br>
 					<div  ng-controller="dropdownCtrl as drop" class='pull-left'>   
-						<ui-select ng-disabled="!pCtrl.persona.name || !pCtrl.persona.job || !pCtrl.persona.bio || !pCtrl.persona.goals" ng-model="drop.publishOption.selected" ng-change="pCtrl.selectPublishOption(drop.publishOption.selected)" search-enabled="false"  theme="bootstrap" style="width: 150px;">
+						<ui-select ng-disabled="!pCtrl.persona.name || !pCtrl.persona.job || !pCtrl.persona.bio || !pCtrl.persona.goals || !pCtrl.persona.accessLevel" ng-model="drop.publishOption.selected" ng-change="pCtrl.selectPublishOption(drop.publishOption.selected)" search-enabled="false"  theme="bootstrap" style="width: 150px;">
 						<ui-select-match placeholder="Publish">{{$select.selected}}</ui-select-match>
 						<ui-select-choices repeat="option in drop.publishOptions">
 						  <div ng-bind-html="option" ng-click="drop.setPrintOption(option)"></div>
 						</ui-select-choices>
 						</ui-select> 	      
 						The print option is {{drop.print}}
-						<button ng-click="pCtrl.publish()">Snimi ja personata</button>
+						<button ng-click="pCtrl.publish()">Save the persona</button>
 					</div>    			
 	    	</div>
 	    	<div class="col-md-4">		    		
@@ -120,7 +123,7 @@
 			    </div> 
 			    <h4 ng-show="pCtrl.persona.challengeTitle"><strong>Core Challenges</strong></h4>
 					<div>{{ pCtrl.persona.challengeTitle }}</div>
-			    <div ng-repeat="challenge in ppCtrl.ersona.challenges">
+			    <div ng-repeat="challenge in pCtrl.persona.challenges">
 			      •{{ challenge}}
 			    </div>
 			    <h4 ng-show="pCtrl.persona.helpTitle"><strong>How We Help</strong></h4>
@@ -150,6 +153,8 @@
 			    <div ng-show="pCtrl.persona.googleplus">Picture of Google Plus</div>
 			    <div ng-show="pCtrl.persona.pinterest">Picture of Pinterest</div>
 			    <br>
+			    <div ng-show="pCtrl.persona.level"><strong>Persona Accessibility:</strong> {{ pCtrl.persona.level}}</div>			
+			    <br>
 			    <h3 ng-show="pCtrl.persona.gender || pCtrl.persona.agerange || drop.chosenIncome.selected || pCtrl.persona.education">Demographic Profile</h3>	
 			    <br>		
 			    <div ng-show="pCtrl.persona.gender"> <strong>Gender:</strong> {{ pCtrl.persona.gender }}</div>
@@ -157,8 +162,10 @@
 			    <div>
 				  	<p ng-show="drop.chosenIncome.selected"><strong>Household Income:</strong> {{drop.chosenIncome.selected}}</p>
 			    </div>  
-			    <div ng-show="pCtrl.persona.education"> <strong>Educational Attainment:</strong> {{ pCtrl.persona.education }}</div> 			  			    
+			    <div ng-show="pCtrl.persona.education"> <strong>Educational Attainment:</strong> {{ pCtrl.persona.education }}</div>     
 	    	</div>
+	    	
+
 	    </div>    
            
       <modal title="Choose/Upload Photo" visible="showModal">
