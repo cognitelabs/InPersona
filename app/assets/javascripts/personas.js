@@ -252,7 +252,7 @@ persona.controller('PersonaControllerShow', ['FileUploader','photoFactory','pers
         persona_post.operating_systems.push("windows7");
       };
       if (this.persona.windows8 == true) {
-        persona_postoperating_systems.push("windows8");
+        persona_post.operating_systems.push("windows8");
       };
       if (this.persona.osx == true) {
         persona_post.operating_systems.push("osx");

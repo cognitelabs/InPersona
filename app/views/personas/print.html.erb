@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />    
+    <%= wicked_pdf_stylesheet_link_tag    "application" %>
+  </head>
+  <body >
+    <div id="header">
+      <%= wicked_pdf_image_tag_for_public @avatar_url %>
+    </div>
+    <div class="col-md-4">            
+          <h3><strong><%= @p.name %></strong></h3> 
+          <h4><strong><%= @p.role %></strong></h4> 
+          <div><%= @p.bio %></div> <br><br>
+          <h4><strong>Goals</strong></h4>
+          <div><%= @gtitle %></div>
+          <% @gfield.each do |item| %>
+            <div>• <%= item %></div>
+          <% end %>
+          <h4><strong>Core Challenges</strong></h4>
+          <div><%= @ctitle %></div>
+          <% @cfield.each do |item| %>
+            <div>• <%= item %></div>
+          <% end %>
+          <h4><strong>How We Help</strong></h4>
+          <div><%= @stitle %></div>
+          <% @sfield.each do |item| %>
+            <div>• <%= item %></div>
+          <% end %>
+          <br>
+          <div>Technology use - <%= @p.tech_use %></div>
+          <br>Devices<br> 
+          <% @p.devices.each do |device| %>
+            <div>Picture of a <%= device %></div>
+          <% end %>
+          <br>  
+          Operating Systems<br>
+          <% @p.os.each do |oss| %>
+            <div>Picture of <%= oss %></div>
+          <% end %>
+          <br>
+          Social Networks<br>
+          <% @p.social_networks.each do |sn| %>
+            <div>Picture of <%= sn %></div>
+          <% end %>
+          <br>
+          <div><strong>Persona Accessibility:</strong> <%= @p.access_level %></div>     
+          <br>
+          <h3>Demographic Profile</h3>  
+          <br>    
+          <div> <strong>Gender:</strong> <%= @p.gender %></div>
+          <div> <strong>Age Range:</strong> <%= @p.age %></div>
+          <div>
+            <p><strong>Household Income:</strong> <%= @p.income %></p>
+          </div>  
+          <div> <strong>Educational Attainment:</strong> <%= @p.education %></div>     
+        </div>
+  </body>
+</html>

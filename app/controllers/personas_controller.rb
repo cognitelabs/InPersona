@@ -14,6 +14,23 @@ class PersonasController < ApplicationController
     @p  = Persona.find(params[:id])
     @edu = @p.education
     @avatar_url = @p.avatar.avatar.url
+
+    @gfield = @p.goals.split("\n•")
+    @gtitle = @gfield.shift
+
+    @cfield = @p.challenges.split("\n•")
+    @ctitle = @cfield.shift
+
+    @sfield = @p.solutions.split("\n•")
+    @stitle = @sfield.shift
+
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "file_name",:template => 'personas/print.html.erb'
+       end
+    end
   end
 
 
