@@ -1,5 +1,5 @@
 <div class="col-md-12" >
-  <div class="container" ng-controller="PersonaControllerShow as pCtrl"  ng-init="pCtrl.init('<%= @p.name %>','<%= @p.role %>','<%= @p.bio %>','<%= @p.goals %>','<%= @p.challenges %>','<%= @p.solutions %>','<%= @p.tech_use %>','<%= @p.gender %>','<%= @p.age %>','<%= @p.income %>','<%= @edu %>','<%= @p.devices %>','<%=  @p.os %>','<%=  @p.social_networks %>','<%= @p.access_level %>','<%= @avatar_url %>','<%= @p.avatar_id %>','<%= @p.id %>')">
+  <div class="container" ng-controller="PersonaControllerShow as pCtrl"  ng-init="pCtrl.init('<%= @avatar_url %>',<%= @p.to_json %>)">
     <h1>Showing already generated persona</h1>
     
 
@@ -86,15 +86,15 @@
             </ui-select>
           </div>    
           <strong>Educational Attainment</strong><br>
-          <input type="radio" ng-model="pCtrl.persona.education" value="noDegree">  No Degree <br/>
-          <input type="radio" ng-model="pCtrl.persona.education" value="highSchool"> High School <br/>
-          <input type="radio" ng-model="pCtrl.persona.education" value="someCollege">  Some College <br/>
-          <input type="radio" ng-model="pCtrl.persona.education" value="bachelorDegree"> Bachelor's Degree <br/>
-          <input type="radio" ng-model="pCtrl.persona.education" value="associateDegree"> Associate's Degree<br/>
-          <input type="radio" ng-model="pCtrl.persona.education" value="masterDegree">  Master's Degree <br/>
-          <input type="radio" ng-model="pCtrl.persona.education" value="someGradSchool"> Some Grad School <br/>
-          <input type="radio" ng-model="pCtrl.persona.education" value="advancedDegree"> Advanced Degree (PhD,EdD) <br/>
-          <input type="radio" ng-model="pCtrl.persona.education" value="professionalDegree"> Professional Degree (JD, MBA) <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="No Degree">  No Degree <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="High School"> High School <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="Some College">  Some College <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="Bachelor's Degree"> Bachelor's Degree <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="Associate's Degree"> Associate's Degree<br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="Master's Degree">  Master's Degree <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="Some Grad School"> Some Grad School <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="Advanced Degree (PhD,EdD)"> Advanced Degree (PhD,EdD) <br/>
+          <input type="radio" ng-model="pCtrl.persona.education" value="Professional Degree (JD, MBA)"> Professional Degree (JD, MBA) <br/>
           <strong>Persona availabilty</strong><br>
           <input type="radio" ng-model="pCtrl.persona.level" value="Public">Public<br/>
           <input type="radio" ng-model="pCtrl.persona.level" value="Private">Private<br/>                                                          

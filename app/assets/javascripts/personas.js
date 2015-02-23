@@ -144,62 +144,73 @@ persona.controller('PersonaControllerShow', ['FileUploader','photoFactory','pers
         value: 5
     };
 
-    this.init = function(name, role, bio, goals, challenges, solutions, tech_use, gender, age, income, education, devices, os, social_networks, level, avat_url, avat_id, per_id) {
-      this.persona.name = name;
-      this.persona.job = role;
-      this.persona.bio = bio;
-      this.persona.goalsfield = goals;
-      this.persona.challengesfield = challenges;
-      this.persona.helpfield = solutions;
-      this.persona.message = tech_use;
-      this.persona.gender = gender;
-      this.persona.agerange = age;
-      this.persona.education = education;
-      this.persona.income = income;
-      this.persona.level = level;
-      this.persona.avatar_id = avat_id;
-      this.persona.per_id = per_id;
+    this.init = function(avat_url, persona_object) {
+      this.persona.name = persona_object.name;
+      this.persona.job = persona_object.role;
+      this.persona.bio = persona_object.bio;
+      this.persona.goalsfield = persona_object.goals;
+      this.persona.challengesfield = persona_object.challenges;
+      this.persona.helpfield = persona_object.solutions;
+      this.persona.message = persona_object.tech_use;
+      this.persona.gender = persona_object.gender;
+      this.persona.agerange = persona_object.age;
+      this.persona.education = persona_object.education;
+      this.persona.income = persona_object.income;
+      this.persona.level = persona_object.access_level;
+      this.persona.avatar_id = persona_object.avatar_id;
+      this.persona.per_id = persona_object.id;
+
+      if (persona_object.tech_use == "Novice") {
+        this.sliderConfig.value = 0;
+      }
+      if (persona_object.tech_use == "Regular") {
+        this.sliderConfig.value = 5;
+      }
+      if (persona_object.tech_use == "Advanced") {
+        this.sliderConfig.value = 10;
+      }
+
       photoFactory.setPhoto(avat_url);
-      if (devices.indexOf('smartphone') != -1) {
+      if (persona_object.devices.indexOf('smartphone') != -1) {
         this.persona.smartphone = true;
       };
-      if (devices.indexOf('tablet') != -1) {
+      if (persona_object.devices.indexOf('tablet') != -1) {
         this.persona.tablet = true;
       };
-      if (devices.indexOf('computer') != -1) {
+      if (persona_object.devices.indexOf('computer') != -1) {
         this.persona.computer = true;
       };
-      if (os.indexOf('windows7') != -1) {
+      if (persona_object.os.indexOf('windows7') != -1) {
         this.persona.windows7 = true;
       };
-      if (os.indexOf('windows8') != -1) {
+      if (persona_object.os.indexOf('windows8') != -1) {
         this.persona.windows8 = true;
       };
-      if (os.indexOf('osx') != -1) {
+      if (persona_object.os.indexOf('osx') != -1) {
         this.persona.osx = true;
       };
-      if (os.indexOf('ios') != -1) {
+      if (persona_object.os.indexOf('ios') != -1) {
         this.persona.ios = true;
       };
-      if (os.indexOf('android') != -1) {
+      if (persona_object.os.indexOf('android') != -1) {
         this.persona.android = true;
       };
-      if (os.indexOf('ubuntu') != -1) {
+      if (persona_object.os.indexOf('ubuntu') != -1) {
         this.persona.ubuntu = true;
       };
-      if (social_networks.indexOf('facebook') != -1) {
+      if (persona_object.social_networks.indexOf('facebook') != -1) {
         this.persona.facebook = true;
       };
-      if (social_networks.indexOf('twitter') != -1) {
+      if (persona_object.social_networks.indexOf('twitter') != -1) {
         this.persona.twitter = true;
       };
-      if (social_networks.indexOf('linkedin') != -1) {
+      if (persona_object.social_networks.indexOf('linkedin') != -1) {
         this.persona.linkedin = true;
       };
-      if (social_networks.indexOf('pinterest') != -1) {
+      if (persona_object.social_networks.indexOf('pinterest') != -1) {
         this.persona.pinterest = true;
       };
-      if (social_networks.indexOf('googleplus') != -1) {
+      if (persona_object.social_networks.indexOf('googleplus') != -1) {
         this.persona.googleplus = true;
       };
       this.persona.goalsfield = this.persona.goalsfield.replace(/\*/g, '• ');

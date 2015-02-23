@@ -8,6 +8,13 @@ Rails.application.routes.draw do
 
   resources :personas, only: [:new,:create, :show, :index, :update]
 
+  resources :teams, only: [:show, :index, :new, :create] do
+    collection do 
+      post 'add_member'
+      get 'remove_member'
+    end 
+  end
+
 
   post 'avatar' => 'avatar#upload_avatar'
   # The priority is based upon order of creation: first created -> highest priority.

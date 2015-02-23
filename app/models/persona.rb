@@ -10,8 +10,6 @@
 #  challenges      :text
 #  solutions       :text
 #  tech_use        :text
-#  os              :text
-#  social_networks :text
 #  gender          :text
 #  age             :text
 #  income          :text
@@ -20,6 +18,10 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  devices         :text             default("{}"), is an Array
+#  os              :string           default("{}"), is an Array
+#  social_networks :string           default("{}"), is an Array
+#  avatar_id       :integer
+#  access_level    :string
 #
 
 class Persona < ActiveRecord::Base
@@ -33,6 +35,8 @@ class Persona < ActiveRecord::Base
 	# 	string_value = value.pop.to_s
 	# 	record.errors.add(attr, "is not included in the list") unless VALID_DEVICES.include?(string_value) || []
 	# end
+  has_many :team_personas
+  has_many :teams, :through => :team_personas
 
 
 end

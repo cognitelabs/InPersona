@@ -12,7 +12,6 @@ class PersonasController < ApplicationController
   def show
     @persona_id = params[:id]
     @p  = Persona.find(params[:id])
-    @edu = @p.education
     @avatar_url = @p.avatar.avatar.url
 
     @gfield = @p.goals.split("\n•")
@@ -22,8 +21,7 @@ class PersonasController < ApplicationController
     @ctitle = @cfield.shift
 
     @sfield = @p.solutions.split("\n•")
-    @stitle = @sfield.shift
-
+    @stitle = @sfield.shift      
 
     respond_to do |format|
       format.html

@@ -1,15 +1,16 @@
 # == Schema Information
 #
-# Table name: team_memberships
+# Table name: team_personas
 #
 #  id         :integer          not null, primary key
-#  user_id    :integer
+#  persona_id :integer
 #  team_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
-class TeamMembership < ActiveRecord::Base
-  belongs_to :user  
-  belongs_to :team
+require 'rails_helper'
+
+RSpec.describe TeamPersona, :type => :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

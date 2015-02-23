@@ -1,18 +1,18 @@
 # == Schema Information
 #
-# Table name: teams
+# Table name: team_personas
 #
 #  id         :integer          not null, primary key
-#  name       :string
-#  owner_id   :integer
+#  persona_id :integer
+#  team_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 FactoryGirl.define do
-  factory :team do
-    name "MyString"
-owner_id 1
+  factory :team_persona do
+    persona_id 1
+team_id 1
   end
 
 end
