@@ -1,0 +1,15 @@
+<div class="col-md-12" ng-app="team">
+  <div class="container" ng-controller="TeamControllerShow as teamCtrl" ng-init="teamCtrl.init(<%= @t.to_json %>,<%= @owner.to_json %>)">
+    <h1>Team name : {{ teamCtrl.team.name }}</h1>
+    <h1>Owner of Team : {{ teamCtrl.owner.email }}</h1>
+    <div>
+      
+    </div>
+    <div>
+      <div>Enter email of new member in order to add that member to the team</div>
+      <input type="text" ng-model="teamCtrl.newMember" placeholder="Enter email"> 
+      <button ng-click="teamCtrl.addMember(teamCtrl.newMember)">Save the persona</button>
+    </div>
+  </div>
+
+</div>

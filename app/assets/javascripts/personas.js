@@ -14,8 +14,8 @@ persona.controller('PersonaController', ['FileUploader','photoFactory','personaF
     var ctrl = this;
     personaFactory.getAll().then(function(response) {
       ctrl.listOfPersonas = response.data;
-      console.log(ctrl.listOfPersonas);
-    });
+      console.log(response.data);
+    });  
 
     this.persona = {};
     this.persona.message = 'Regular';
