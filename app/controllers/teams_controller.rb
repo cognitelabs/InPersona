@@ -8,7 +8,10 @@ class TeamsController < ApplicationController
   end
 
   def create
-
+    t = Team.create(:name => params[:team_name], :owner_id => current_user.id)
+    respond_to do |format|
+      format.json { render json: { :team => t } }
+    end
   end
 
   def show

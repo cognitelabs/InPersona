@@ -10,7 +10,14 @@ team.controller('TeamControllerIndex', ['teamFactory', function (teamFactory) {
   teamFactory.getAllTeams().then(function(response){
     ctrl.listOfTeams = response.data;
     console.log(ctrl.listOfTeams);
-  });
+  }); 
+
+  this.addTeam = function(team_name) {
+    teamFactory.createTeam(team_name).then(function(response){
+      console.log(response.data.team);      
+      $( "#table_id tbody" ).append( "<tr><td>"+"<a href=teams/"+response.data.team.id+">"+response.data.team.name+"</a>"+"</td><td>"+response.data.team.owner_id+"</td></tr>");
+    });
+  };
 }]);
 
 team.controller('TeamControllerShow', ['teamFactory', function (teamFactory) {
@@ -25,6 +32,8 @@ team.controller('TeamControllerShow', ['teamFactory', function (teamFactory) {
       console.log(response.data.test.email);
     });
   };
+
+  
 }]);
 
 
@@ -38,13 +47,17 @@ team.factory('teamFactory', ['$http','$q',function ($http, $q) {
     return deferred.promise;
   };
 
+  fact.createTeam = function(team_name) {
+    items = { team_name: team_name};
+    return $http.post('/teams.json',items).success(function(data){
+    });
+  };
+
+
   fact.addMemberToTeam = function(mail, team_id) {
     items = { email: mail, team: team_id };
     return $http.post('/teams/add_member.json',items).success(function(data) {      
     });
-  };
-  fact.createTeam = function(team_name) {
-
   };
   return fact;
 }]);
