@@ -17,11 +17,24 @@ class TeamsController < ApplicationController
   def show
     @t = Team.find(params[:id])
     @owner = User.find(@t.owner_id)
+    @personas = Persona.where(user_id: @t.owner_id)
   end
 
   def add_member
+    @u = User.find_by email: params[:email]
+    if @u.nil?
+       @response = "There is no such user"
+       @t = TeamMembership.new(:team_id => params[:team], :user_email => params[:email], :user_id => nil)
+       @t.save
+       # mail needs to be sent to the user so the user can register
+    else 
+      @response = "Such user exists"
+      @t = TeamMembership.new(:team_id => params[:team], :user_email => @u.email, :user_id => @u.id)
+      @t.save
+    end      
+
     respond_to do |format|
-      format.json { render json: { :test => current_user} }
+      format.json { render json: { :test => @response} }
     end
   end
 

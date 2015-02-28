@@ -10,6 +10,21 @@
       <input type="text" ng-model="teamCtrl.newMember" placeholder="Enter email"> 
       <button ng-click="teamCtrl.addMember(teamCtrl.newMember)">Save the persona</button>
     </div>
+
+    <div ng-controller="dropdownCtrl as drop" ng-init="drop.initPersonas(<%= @personas.to_json %>)">
+      <ui-select ng-model="drop.level.selected" ng-change="teamCtrl.selectLevel(drop.level.selected)" search-enabled="false"  theme="bootstrap" style="width: 300px;">
+        <ui-select-match placeholder="Select the access level of the persona.">{{$select.selected}}</ui-select-match>
+        <ui-select-choices repeat="level in drop.access_levels">
+          <div ng-bind-html="level"></div>
+        </ui-select-choices>
+      </ui-select>
+      <ui-select ng-model="drop.persona.selected" ng-change="teamCtrl.selectPersona(drop.persona.selected)" search-enabled="false"  theme="bootstrap" style="width: 300px;">
+        <ui-select-match placeholder="Select which persona u want o share.">{{$select.selected.name}}</ui-select-match>
+        <ui-select-choices repeat="persona in drop.all_personas">
+          <div ng-bind-html="persona.name"></div>
+        </ui-select-choices>
+      </ui-select>
+    </div>
   </div>
 
 </div>

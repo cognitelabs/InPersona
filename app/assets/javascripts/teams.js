@@ -2,7 +2,7 @@
 // All this logic will automatically be available in application.js.
 
 
-var team = angular.module('team',[]);
+var team = angular.module('team',['dropdown']);
 
 team.controller('TeamControllerIndex', ['teamFactory', function (teamFactory) {
 
@@ -32,6 +32,14 @@ team.controller('TeamControllerShow', ['teamFactory', function (teamFactory) {
       console.log(response.data.test.email);
     });
   };
+
+  this.selectLevel = function(level_option) {
+    console.log(level_option);
+  };
+
+  this.selectPersona = function(persona) {
+    console.log(persona);
+  }
 
   
 }]);
