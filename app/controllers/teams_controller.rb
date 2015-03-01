@@ -17,7 +17,15 @@ class TeamsController < ApplicationController
   def show
     @t = Team.find(params[:id])
     @owner = User.find(@t.owner_id)
+
+    # show only personas that have not been added to the TeamPersona relation
+    @pids = TeamPersona.where(:team_id => params[:id]).pluck(:persona_id)
     @personas = Persona.where(user_id: @t.owner_id)
+    if !@pids.empty?
+      @personas = @personas.where('id not in (?)',@pids)
+    end
+
+    @team_members = TeamMembership.where(team_id: params[:id])
   end
 
   def add_member
@@ -34,11 +42,25 @@ class TeamsController < ApplicationController
     end      
 
     respond_to do |format|
-      format.json { render json: { :test => @response} }
+      format.json { render json: { :mem => @t} }
     end
   end
 
   def remove_member
-
+    TeamMembership.destroy(params[:team_mem_id]);
+    respond_to do |format|
+      format.json { render json: {:success => "successfuly deleted"}}
+    end
   end
+
+  def add_persona_to_team
+    @t = TeamPersona.new(:persona_id => params[:persona_id], :access_level => params[:access], :team_id => params[:team_id])
+    @t.save
+
+    respond_to do |format|
+      format.json  { render json: {:test => "Dobro e"} } 
+    end
+  end
+
+
 end

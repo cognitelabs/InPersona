@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   resources :teams, only: [:show, :index, :new, :create] do
     collection do 
       post 'add_member'
-      get 'remove_member'
+      post 'remove_member'
+      post 'add_persona_to_team'
     end 
   end
 

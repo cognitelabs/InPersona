@@ -28,4 +28,16 @@ class User < ActiveRecord::Base
   has_many :teams, :through => :team_memberships
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
+
+  after_create :check_memberships
+
+  def check_memberships
+    @t = TeamMembership.where(email: self.email)
+    if @t.any? 
+      @t.each do |t|
+        @t.user_id = self.id
+        @t.save
+      end
+    end
+  end
 end

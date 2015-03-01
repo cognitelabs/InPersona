@@ -4,7 +4,7 @@
 
 var team = angular.module('team',['dropdown']);
 
-team.controller('TeamControllerIndex', ['teamFactory', function (teamFactory) {
+team.controller('TeamControllerIndex', ['teamFactory','$compile', function (teamFactory, $compile) {
 
   var ctrl = this;
   teamFactory.getAllTeams().then(function(response){
@@ -14,32 +14,56 @@ team.controller('TeamControllerIndex', ['teamFactory', function (teamFactory) {
 
   this.addTeam = function(team_name) {
     teamFactory.createTeam(team_name).then(function(response){
-      console.log(response.data.team);      
-      $( "#table_id tbody" ).append( "<tr><td>"+"<a href=teams/"+response.data.team.id+">"+response.data.team.name+"</a>"+"</td><td>"+response.data.team.owner_id+"</td></tr>");
+      ctrl.listOfTeams.push(response.data.team);
     });
   };
 }]);
 
 team.controller('TeamControllerShow', ['teamFactory', function (teamFactory) {
   var ctrl = this;
-  this.init = function(team_param, owner_param) {
+  this.init = function(team_param, owner_param, team_members) {
     ctrl.team = team_param;
     ctrl.owner = owner_param;
+    ctrl.members = team_members;
+    console.log(team_members);
   }
 
   this.addMember = function(member_mail) {
     teamFactory.addMemberToTeam(member_mail, ctrl.team.id).then(function(response){
-      console.log(response.data.test.email);
+      ctrl.members.push(response.data.mem);
+      ctrl.newMember = "";
+    });
+  };
+
+  this.removeMember = function(mem) {
+    console.log(mem);
+    teamFactory.removeMemberFromTeam(mem).then(function(response){
+      var arrayLength = ctrl.members.length;
+      for (var i = 0; i < arrayLength; i++) {
+          if (ctrl.members[i].id == mem) {
+            ctrl.members.splice(ctrl.members.indexOf(i),1);
+          }
+      }
     });
   };
 
   this.selectLevel = function(level_option) {
     console.log(level_option);
+    ctrl.team_access = level_option;
+    console.log(this.team);
   };
 
   this.selectPersona = function(persona) {
-    console.log(persona);
-  }
+    console.log(persona.id);
+    ctrl.persona_share = persona.id;
+  };
+
+  this.addPersona = function() {
+    console.log(ctrl.persona_share +" i " + ctrl.team_access + " i " + ctrl.team.id);
+    teamFactory.addPersonaPrivilege(ctrl.persona_share, ctrl.team_access, ctrl.team.id).then(function(response){
+      console.log(response.data);
+    });
+  };
 
   
 }]);
@@ -66,6 +90,18 @@ team.factory('teamFactory', ['$http','$q',function ($http, $q) {
     items = { email: mail, team: team_id };
     return $http.post('/teams/add_member.json',items).success(function(data) {      
     });
+  };
+
+  fact.addPersonaPrivilege = function(persona, team_access, team_id) {
+    items = { persona_id: persona, access: team_access, team_id: team_id };
+    return $http.post('/teams/add_persona_to_team.json',items).success(function(data) {      
+    }); 
+  };
+
+  fact.removeMemberFromTeam = function(team_mem_id) {
+    items = {team_mem_id: team_mem_id };
+    return $http.post('/teams/remove_member.json',items).success(function(data) {      
+    }); 
   };
   return fact;
 }]);
