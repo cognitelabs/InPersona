@@ -3,8 +3,7 @@ class TeamsController < ApplicationController
   respond_to :json, :html
 
   def index
-    respond_with Team.all
-    # respond_with current_user - ova da se iskoristi, so Team.where(owner_id = current_user or user id belongs in team)
+    respond_with Team.where(:owner_id => current_user.id)
   end
 
   def create
@@ -34,7 +33,8 @@ class TeamsController < ApplicationController
        @response = "There is no such user"
        @t = TeamMembership.new(:team_id => params[:team], :user_email => params[:email], :user_id => nil)
        @t.save
-       # mail needs to be sent to the user so the user can register
+       # UserMailer.add_to_team(params[:email]).deliver_now 
+       # the above line needs to be uncommented in production
     else 
       @response = "Such user exists"
       @t = TeamMembership.new(:team_id => params[:team], :user_email => @u.email, :user_id => @u.id)

@@ -1,11 +1,11 @@
 <div   ng-app="persona" class="col-md-12" >
-  <div class="container" ng-controller="PersonaControllerShow as pCtrl"  ng-init="pCtrl.init('<%= @avatar_url %>',<%= @p.to_json %>)">
+  <div class="container" ng-controller="PersonaControllerShow as pCtrl"  ng-init="pCtrl.init('<%= @avatar_url %>',<%= @p.to_json %>,'<%= @show_edit %>')">
     <h1>Showing already generated persona</h1>
     
 
     <div ng-controller="MainCtrl" class="container" ng-init="chosenPhoto ='<%= @avatar_url %>'">
       <div   ng-controller="dropdownCtrl as drop"  ng-init="drop.init('<%= @p.income %>')"  class="row">
-        <div class="col-md-4" ng-show="pCtrl.persona.level == 'Public'">
+        <div class="col-md-4" ng-show="pCtrl.show_edit_on_persona == 'true'">
           <label >Persona's Picture*</label>
           <img title="It's important to upload a persona photo" data-toggle="tooltip" data-position="top" tooltip ng-src="http://pnsn.org/assets/small_info_icon-ccc447ab652816918f7c7741179983c7.png">
           <br>
@@ -102,7 +102,7 @@
         </div>
         <div class="col-md-4" > 
           <img ng-src="{{chosenPhoto}}" alt=""><br><br>
-          <div  ng-controller="dropdownCtrl as drop"  ng-show="pCtrl.persona.level == 'Public'" class='pull-left'>   
+          <div  ng-controller="dropdownCtrl as drop"  ng-show="pCtrl.show_edit_on_persona == 'true'" class='pull-left'>   
             <ui-select ng-disabled="!pCtrl.persona.name || !pCtrl.persona.job || !pCtrl.persona.bio || !pCtrl.persona.goals || !pCtrl.persona.accessLevel" ng-model="drop.publishOption.selected" ng-change="pCtrl.selectPublishOption(drop.publishOption.selected)" search-enabled="false"  theme="bootstrap" style="width: 150px;">
             <ui-select-match placeholder="Publish">{{$select.selected}}</ui-select-match>
             <ui-select-choices repeat="option in drop.publishOptions">

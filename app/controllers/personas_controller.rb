@@ -6,10 +6,30 @@ class PersonasController < ApplicationController
   end
 
   def index
-    respond_with Persona.all
+    @teams_in_which_user_belongs =  TeamMembership.where(:user_id => current_user.id).pluck(:team_id)
+
+    # persona ids that are created by the current user and personas that are shared by another team member-and are read-write
+    @my_personas = Persona.where(:user_id => current_user.id).pluck(:id)
+    @team_personas_that_can_be_edited  = TeamPersona.where('team_id  in (?)',@teams_in_which_user_belongs).where(access_level: "read-only").pluck(:persona_id)
+    # personas ids that are public and not current user's and personas that are shared by another team member-and are read-only
+    @public_personas = Persona.where(:access_level => "Public").where.not(user_id: current_user.id).pluck(:id)
+    @team_personas_that_can_be_read_only = TeamPersona.where('team_id  in (?)',@teams_in_which_user_belongs).where(access_level: "read and write").pluck(:persona_id)
+
+    @result = @my_personas + @team_personas_that_can_be_edited + @public_personas + @team_personas_that_can_be_read_only
+    @result.uniq!    
+
+    respond_with Persona.where('id in (?)', @result)
   end
 
   def show
+    teams_in_which_user_belongs =  TeamMembership.where(:user_id => current_user.id).pluck(:team_id)
+    my_personas = Persona.where(:user_id => current_user.id).pluck(:id)
+    team_personas_that_can_be_edited  = TeamPersona.where('team_id  in (?)',teams_in_which_user_belongs).where(access_level: "read and write").pluck(:persona_id)
+ 
+    result = my_personas + team_personas_that_can_be_edited
+    @show_edit = result.include?(params[:id].to_i)
+   
+
     @persona_id = params[:id]
     @p  = Persona.find(params[:id])
     @avatar_url = @p.avatar.avatar.url

@@ -144,7 +144,9 @@ persona.controller('PersonaControllerShow', ['FileUploader','photoFactory','pers
         value: 5
     };
 
-    this.init = function(avat_url, persona_object) {
+    this.init = function(avat_url, persona_object, show_edit) {
+      console.log(show_edit);
+      this.show_edit_on_persona = show_edit;
       this.persona.name = persona_object.name;
       this.persona.job = persona_object.role;
       this.persona.bio = persona_object.bio;
