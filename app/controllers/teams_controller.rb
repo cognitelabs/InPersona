@@ -33,7 +33,7 @@ class TeamsController < ApplicationController
        @response = "There is no such user"
        @t = TeamMembership.new(:team_id => params[:team], :user_email => params[:email], :user_id => nil)
        @t.save
-       # UserMailer.add_to_team(params[:email]).deliver_now 
+       UserMailer.add_to_team(params[:email]).deliver_now 
        # the above line needs to be uncommented in production
     else 
       @response = "Such user exists"
