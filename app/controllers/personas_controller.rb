@@ -26,6 +26,8 @@ class PersonasController < ApplicationController
     my_personas = Persona.where(:user_id => current_user.id).pluck(:id)
     team_personas_that_can_be_edited  = TeamPersona.where('team_id  in (?)',teams_in_which_user_belongs).where(access_level: "read and write").pluck(:persona_id)
  
+
+
     result = my_personas + team_personas_that_can_be_edited
     @show_edit = result.include?(params[:id].to_i)
    
@@ -33,6 +35,8 @@ class PersonasController < ApplicationController
     @persona_id = params[:id]
     @p  = Persona.find(params[:id])
     @avatar_url = @p.avatar.avatar.url
+
+    authorize! :read, @p
 
     @gfield = @p.goals.split("\n•")
     @gtitle = @gfield.shift
@@ -64,6 +68,8 @@ class PersonasController < ApplicationController
 
   def update
     p = Persona.find(params[:id])
+
+    authorize! :update, p
     p.name = params[:name]
     p.role = params[:job]
     p.bio = params[:bio]

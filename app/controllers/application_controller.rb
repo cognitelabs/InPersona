@@ -15,4 +15,9 @@ class ApplicationController < ActionController::Base
   def verified_request?
     super || valid_authenticity_token?(session, request.headers['X-XSRF-TOKEN'])
   end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
 end
+
