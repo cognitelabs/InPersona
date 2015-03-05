@@ -14,11 +14,12 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require angular/angular
-//= require angular-sanitize.js
+//= require angular-sanitize/angular-sanitize
 //= require bootstrap/dist/js/bootstrap
 //= require moment/moment
 //= require personas.js
 //= require dropdown.js
-//= require select.js
+//= require persona_factories.js
+//= require angular-ui-select/dist/select
 //= require angularjs-file-upload
 //= require_tree .

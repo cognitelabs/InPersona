@@ -14,5 +14,5 @@
  *= require_self
  *= require jquery-ui
  *= require slider.css
- *= require select.css
+ *= require angular-ui-select/dist/select
  */

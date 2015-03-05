@@ -1,12 +1,13 @@
 <div class="col-md-12">
   <h1>Pages#home</h1>
   <p>Find me in app/views/pages/home.html.erb</p>
+  <%= link_to "View All Personas", personas_path %>
+  <br>
   <% if user_signed_in? %>
     Create a persona: 
     <br>
     <%= link_to "Create a Persona", new_persona_path %> 
-    <br>
-    <%= link_to "View All Personas", personas_path %>
+    <br>    
     <br>
     <%= link_to "View and Create Teams", teams_path %>
     <br>

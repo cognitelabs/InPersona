@@ -1,42 +1,49 @@
 class PersonasController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :except => [:index, :show]
   respond_to :json, :html
+  load_and_authorize_resource :only => [:show, :update]
   
   def new
   end
 
   def index
-    @teams_in_which_user_belongs =  TeamMembership.where(:user_id => current_user.id).pluck(:team_id)
+    if current_user.nil? 
+      respond_with Persona.where(:access_level => "Public")
 
-    # persona ids that are created by the current user and personas that are shared by another team member-and are read-write
-    @my_personas = Persona.where(:user_id => current_user.id).pluck(:id)
-    @team_personas_that_can_be_edited  = TeamPersona.where('team_id  in (?)',@teams_in_which_user_belongs).where(access_level: "read-only").pluck(:persona_id)
-    # personas ids that are public and not current user's and personas that are shared by another team member-and are read-only
-    @public_personas = Persona.where(:access_level => "Public").where.not(user_id: current_user.id).pluck(:id)
-    @team_personas_that_can_be_read_only = TeamPersona.where('team_id  in (?)',@teams_in_which_user_belongs).where(access_level: "read and write").pluck(:persona_id)
+    else
+      @teams_in_which_user_belongs =  TeamMembership.where(:user_id => current_user.id).pluck(:team_id)
 
-    @result = @my_personas + @team_personas_that_can_be_edited + @public_personas + @team_personas_that_can_be_read_only
-    @result.uniq!    
+      # persona ids that are created by the current user and personas that are shared by another team member-and are read-write
+      @my_personas = Persona.where(:user_id => current_user.id).pluck(:id)
+      @team_personas_that_can_be_edited  = TeamPersona.where('team_id  in (?)',@teams_in_which_user_belongs).where(access_level: "read-only").pluck(:persona_id)
+      # personas ids that are public and not current user's and personas that are shared by another team member-and are read-only
+      @public_personas = Persona.where(:access_level => "Public").where.not(user_id: current_user.id).pluck(:id)
+      @team_personas_that_can_be_read_only = TeamPersona.where('team_id  in (?)',@teams_in_which_user_belongs).where(access_level: "read and write").pluck(:persona_id)
 
-    respond_with Persona.where('id in (?)', @result)
+      @result = @my_personas + @team_personas_that_can_be_edited + @public_personas + @team_personas_that_can_be_read_only
+      @result.uniq!    
+
+      respond_with Persona.where('id in (?)', @result)
+    end
   end
 
   def show
-    teams_in_which_user_belongs =  TeamMembership.where(:user_id => current_user.id).pluck(:team_id)
-    my_personas = Persona.where(:user_id => current_user.id).pluck(:id)
-    team_personas_that_can_be_edited  = TeamPersona.where('team_id  in (?)',teams_in_which_user_belongs).where(access_level: "read and write").pluck(:persona_id)
- 
 
-
-    result = my_personas + team_personas_that_can_be_edited
+    if current_user.nil? 
+      result = []
+    else
+      teams_in_which_user_belongs =  TeamMembership.where(:user_id => current_user.id).pluck(:team_id)
+      my_personas = Persona.where(:user_id => current_user.id).pluck(:id)
+      team_personas_that_can_be_edited  = TeamPersona.where('team_id  in (?)',teams_in_which_user_belongs).where(access_level: "read and write").pluck(:persona_id)
+      result = my_personas + team_personas_that_can_be_edited
+    end
+    
     @show_edit = result.include?(params[:id].to_i)
    
 
     @persona_id = params[:id]
     @p  = Persona.find(params[:id])
     @avatar_url = @p.avatar.avatar.url
-
-    authorize! :read, @p
 
     @gfield = @p.goals.split("\n•")
     @gtitle = @gfield.shift
@@ -69,7 +76,6 @@ class PersonasController < ApplicationController
   def update
     p = Persona.find(params[:id])
 
-    authorize! :update, p
     p.name = params[:name]
     p.role = params[:job]
     p.bio = params[:bio]
@@ -85,6 +91,7 @@ class PersonasController < ApplicationController
     p.income = params[:income]
     p.education = params[:education]
     p.avatar_id = params[:avatar_id]
+    p.access_level = params[:level]
     p.save
     respond_to do |format|
       format.json { render json: { :test => "current_user updated"} }
