@@ -1,0 +1,24 @@
+
+
+<div  ng-app="persona" class="container">
+<h1>Personas that are listed in the database</h1>
+  <div  ng-controller="PersonaController as pCtrl"> 
+    <div>
+      <div >
+        <table class="table table-striped">
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+          </tr>          
+          <tr ng-repeat="persona in pCtrl.listOfPersonas">
+              <td><a href="personas/{{persona.id}}">{{persona.name}}</a></td>   
+              <td>{{persona.role}}</td>           
+          </tr>  
+        </table>
+
+        <br>
+      </div>
+    </div>
+  </div>
+
+</div>

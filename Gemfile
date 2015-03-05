@@ -13,6 +13,12 @@ gem 'font-awesome-rails', '~> 4.0.0'
 gem 'devise'
 gem 'cancancan'
 gem 'less-rails'
+gem 'jquery-ui-rails'
+gem 'angularjs-file-upload-rails', '~> 1.1.6'
+gem 'carrierwave'
+gem "rmagick"
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

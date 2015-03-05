@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150127033007) do
+ActiveRecord::Schema.define(version: 20150228124850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "avatars", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "avatar"
+  end
 
   create_table "personas", force: :cascade do |t|
     t.text     "name"
@@ -24,8 +30,6 @@ ActiveRecord::Schema.define(version: 20150127033007) do
     t.text     "challenges"
     t.text     "solutions"
     t.text     "tech_use"
-    t.text     "os"
-    t.text     "social_networks"
     t.text     "gender"
     t.text     "age"
     t.text     "income"
@@ -34,9 +38,36 @@ ActiveRecord::Schema.define(version: 20150127033007) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.text     "devices",         default: [],              array: true
+    t.string   "os",              default: [],              array: true
+    t.string   "social_networks", default: [],              array: true
+    t.integer  "avatar_id"
+    t.string   "access_level"
   end
 
   add_index "personas", ["user_id"], name: "index_personas_on_user_id", using: :btree
+
+  create_table "team_memberships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "user_email"
+  end
+
+  create_table "team_personas", force: :cascade do |t|
+    t.integer  "persona_id"
+    t.integer  "team_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "access_level"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

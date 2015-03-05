@@ -1,0 +1,82 @@
+angular.module('persona').directive('modal', function() {
+  return {
+     templateUrl: "<%= asset_path 'modal.tpl.html' %>",
+    restrict: 'E',
+    transclude: true,
+    replace: true,
+    scope: true,
+    link: function postLink(scope, element, attrs) {
+      scope.title = attrs.title;
+
+      scope.$watch(attrs.visible, function(value) {
+        if (value == true)
+          $(element).modal('show');
+        else
+          $(element).modal('hide');
+      });
+
+      $(element).on('shown.bs.modal', function() {
+        scope.$apply(function() {
+          scope.$parent[attrs.visible] = true;
+        });
+      });
+
+      $(element).on('hidden.bs.modal', function() {
+        scope.$apply(function() {
+          scope.$parent[attrs.visible] = false;
+        });
+      });
+    }
+  };
+});
+
+
+
+angular.module('persona').directive('tooltip', function() {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      $(element).hover(function() {
+        $(element).tooltip('show');
+      }, function() {
+        $(element).tooltip('hide');
+      });
+    }
+  };
+});
+
+
+angular.module('persona').directive("slider", function() {
+  return {
+    restrict: 'A',
+    scope: {
+      config: "=config",
+      price: "=model"
+    },
+    link: function(scope, elem, attrs) {
+      var setModel = function(value) {
+        scope.model = value;
+      }
+
+      $(elem).slider({
+        range: false,
+        min: scope.config.min,
+        max: scope.config.max,
+        step: scope.config.step,
+        value: scope.config.value,
+        slide: function(event, ui) {
+          scope.$apply(function() {
+            scope.price = ui.value;
+            if (scope.price == 0) {
+              scope.$parent.pCtrl.persona.message = 'Novice';
+            } else if (scope.price == 5) {
+              scope.$parent.pCtrl.persona.message = 'Regular';
+            } else {
+              scope.$parent.pCtrl.persona.message = 'Advanced';
+            }
+          });
+        }
+      });
+    }
+  }
+});

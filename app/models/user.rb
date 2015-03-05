@@ -24,6 +24,20 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
+  has_many :team_memberships
+  has_many :teams, :through => :team_memberships
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
+
+  after_create :check_memberships
+
+  def check_memberships
+    @t = TeamMembership.where(email: self.email)
+    if @t.any? 
+      @t.each do |t|
+        @t.user_id = self.id
+        @t.save
+      end
+    end
+  end
 end

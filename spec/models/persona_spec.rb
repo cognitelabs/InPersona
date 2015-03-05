@@ -10,8 +10,6 @@
 #  challenges      :text
 #  solutions       :text
 #  tech_use        :text
-#  os              :text
-#  social_networks :text
 #  gender          :text
 #  age             :text
 #  income          :text
@@ -20,6 +18,10 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  devices         :text             default("{}"), is an Array
+#  os              :string           default("{}"), is an Array
+#  social_networks :string           default("{}"), is an Array
+#  avatar_id       :integer
+#  access_level    :string
 #
 
 require 'rails_helper'

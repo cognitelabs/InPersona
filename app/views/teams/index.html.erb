@@ -1,0 +1,23 @@
+<div class="col-md-12" ng-app="team">
+  <div class="container" ng-controller="TeamControllerIndex as teamCtrl">
+    <h1>Listing all the teams that the user is in</h1>
+    <div>
+      <table id="table_id" class="table table-striped">
+          <tr>
+            <th>Team</th>
+            <th>Owner</th>
+          </tr>          
+          <tr ng-repeat="team in teamCtrl.listOfTeams">
+              <td><a href="teams/{{team.id}}">{{team.name}}</a></td>   
+              <td>{{team.owner_id}}</td>           
+          </tr>  
+        </table>
+    </div>
+    <div>
+      <div id ="teamCol">Create a Team</div>
+      <input type="text" ng-model="teamCtrl.newTeam" placeholder="Enter Team Name"> 
+      <button ng-click="teamCtrl.addTeam(teamCtrl.newTeam)">Create a new team</button>
+    </div>
+  </div>
+
+</div>

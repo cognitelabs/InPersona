@@ -1,0 +1,42 @@
+<div class="col-md-12" ng-app="team">
+  <div class="container" ng-controller="TeamControllerShow as teamCtrl" ng-init="teamCtrl.init(<%= @t.to_json %>,<%= @owner.to_json %>,<%= @team_members.to_json %> )">
+    <h1>Team name : {{ teamCtrl.team.name }}</h1>
+    <h1>Owner of Team : {{ teamCtrl.owner.email }}</h1>
+    <div><div>Members of the team are:</div>
+    <table id="table_show" class="table table-striped">
+          <tr>
+            <th>Member</th>
+            <th>Remove the member</th>
+          </tr>          
+          <tr class="{{member.id}}" ng-repeat="member in teamCtrl.members">
+              <td >{{member.user_email}}</td>   
+              <td><a href="" ng-click="teamCtrl.removeMember(member.id)">Remove The Member</a></td>           
+          </tr>  
+        </table>
+
+      
+    </div>
+    <div>
+      <div>Enter email of new member in order to add that member to the team</div>
+      <input type="text" ng-model="teamCtrl.newMember" placeholder="Enter email"> 
+      <button ng-click="teamCtrl.addMember(teamCtrl.newMember)">Save the persona</button>
+    </div>
+
+    <div ng-controller="dropdownCtrl as drop" ng-init="drop.initPersonas(<%= @personas.to_json %>)">
+      <ui-select ng-model="drop.level.selected" ng-change="teamCtrl.selectLevel(drop.level.selected)"  ng-disabled="drop.disabled" search-enabled="false"  theme="bootstrap" style="width: 300px;">
+        <ui-select-match placeholder="Select the access level of the persona.">{{$select.selected}}</ui-select-match>
+        <ui-select-choices repeat="level in drop.access_levels">
+          <div ng-bind-html="level"></div>
+        </ui-select-choices>
+      </ui-select>
+      <ui-select ng-model="drop.persona.selected" ng-change="teamCtrl.selectPersona(drop.persona.selected)" search-enabled="false" ng-disabled="drop.disabled"  theme="bootstrap" style="width: 300px;">
+        <ui-select-match placeholder="Select which persona u want o share.">{{$select.selected.name}}</ui-select-match>
+        <ui-select-choices repeat="persona in drop.all_personas">
+          <div ng-bind-html="persona.name"></div>
+        </ui-select-choices>
+      </ui-select>
+      <button ng-click="teamCtrl.addPersona(); drop.removeFromList(drop.persona.selected)" ng-disabled="drop.disabled">Add the Persona Privilege</button>
+    </div>
+  </div>
+
+</div>
