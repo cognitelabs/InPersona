@@ -19,6 +19,7 @@
     "moment": "*",
     "bootstrap": "*",
     "angular-sanitize": "*",
-    "angular-ui-select": "*"
+    "angular-ui-select": "*",
+    "RRSSB": "*"
   }
 }

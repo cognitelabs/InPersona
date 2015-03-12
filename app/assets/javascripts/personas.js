@@ -24,6 +24,13 @@ persona.controller('PersonaController', ['FileUploader', 'photoFactory', 'person
     photoFactory.setPhoto(response.avatar_url);
   };
 
+  ctrl.preloadedPhoto = function(photo_id) {
+    var srctext = photo_id;
+    var re = /(.*\/avatar\/)(.*)(\/avatar.*)/;
+    var newtext = srctext.replace(re, "$2");
+    ctrl.persona.avatar_id = newtext;
+  };
+
   ctrl.publish = function() {
     var persona_post = {};
     persona_post.devices = [];
@@ -84,7 +91,10 @@ persona.controller('PersonaController', ['FileUploader', 'photoFactory', 'person
     persona_post.education = ctrl.persona.education;
     persona_post.tech_use = ctrl.persona.message;
     persona_post.level = ctrl.persona.level;
-    personaFactory.create(persona_post);
+
+    personaFactory.create(persona_post).then(function(response) {
+      ctrl.id_after_publish = response.data.persona.id;
+    });
   };
 
   ctrl.persona.smartphone = true;
@@ -131,6 +141,7 @@ persona.controller('PersonaControllerShow', ['FileUploader', 'photoFactory', 'pe
   ctrl.sliderConfig = personaFactory.slider;
 
   ctrl.init = function(avat_url, persona_object, show_edit) {
+    ctrl.id_after_publish = persona_object.id;
     ctrl.show_edit_on_persona = show_edit;
     ctrl.persona.name = persona_object.name;
     ctrl.persona.job = persona_object.role;
@@ -228,6 +239,14 @@ persona.controller('PersonaControllerShow', ['FileUploader', 'photoFactory', 'pe
     ctrl.persona.avatar_id = response.avatar_id;
     photoFactory.setPhoto(response.avatar_url);
   };
+
+  ctrl.preloadedPhoto = function(photo_id) {
+    var srctext = photo_id;
+    var re = /(.*\/avatar\/)(.*)(\/avatar.*)/;
+    var newtext = srctext.replace(re, "$2");
+    ctrl.persona.avatar_id = newtext;
+  };
+
 
   ctrl.publishUpdate = function() {
     var persona_post = {};
@@ -332,9 +351,13 @@ persona.controller('MainCtrl', function($scope, photoFactory) {
     $scope.showModal = !$scope.showModal;
   };
 
-  $scope.urls = ['http://img1.jurko.net/avatar_12034.gif', 'http://img1.jurko.net/avatar_13909.gif', 'http://img1.jurko.net/avatar_16426.gif',
-    'http://img1.jurko.net/avatar_17385.jpg', 'http://img1.jurko.net/avatar_18567.jpg', 'http://img1.jurko.net/avatar_18897.jpg',
-    'http://img1.jurko.net/2396030.jpg', 'http://img1.jurko.net/rb1.jpg'
+  $scope.urls = ['/uploads/avatar/avatar/100/avatar1.jpg', '/uploads/avatar/avatar/101/avatar2.jpg', '/uploads/avatar/avatar/102/avatar3.jpg',
+    '/uploads/avatar/avatar/103/avatar4.jpg', '/uploads/avatar/avatar/104/avatar5.jpg', '/uploads/avatar/avatar/105/avatar6.jpg',
+    '/uploads/avatar/avatar/106/avatar7.jpg', '/uploads/avatar/avatar/107/avatar8.jpg', '/uploads/avatar/avatar/108/avatar9.jpg',
+    '/uploads/avatar/avatar/109/avatar10.jpg', '/uploads/avatar/avatar/110/avatar11.jpg', '/uploads/avatar/avatar/111/avatar12.jpg',
+    '/uploads/avatar/avatar/112/avatar13.jpg','/uploads/avatar/avatar/113/avatar14.jpg','/uploads/avatar/avatar/114/avatar15.jpg',
+    '/uploads/avatar/avatar/115/avatar16.jpg'
+
   ];
 
   $scope.setPhoto = function(photo) {
