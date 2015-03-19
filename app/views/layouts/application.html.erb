@@ -14,6 +14,9 @@
 <body>
   <div class="page-content">
     <!-- Flash -->
+    <ol class="breadcrumb">
+          <%= render_breadcrumbs :tag => :li, :separator => "" %>
+    </ol>
     <%- flash.each do |name, msg| -%>
       <div class="row">
         <div class="col-md-12">
