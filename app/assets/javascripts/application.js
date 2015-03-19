@@ -22,4 +22,5 @@
 //= require persona_factories.js
 //= require angular-ui-select/dist/select
 //= require angularjs-file-upload
+//= require RRSSB/js/rrssb
 //= require_tree .

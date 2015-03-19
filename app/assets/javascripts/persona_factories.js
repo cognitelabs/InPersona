@@ -26,12 +26,12 @@ angular.module('persona').factory('personaFactory', ['$http', function($http) {
   };
   fact.create = function(persona) {
     return $http.post('/personas.json', persona).success(function(data) {
-
+      return data;
     });
   };
   fact.updatePersona = function(persona) {
     return $http.put("/personas/" + persona.per_id + ".json", persona).success(function(data) {
-
+      return data;
     })
   };
 

@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+for i in 1..16
+  avatar = Avatar.new
+  avatar.avatar = Rails.root.join("public/images/avatar"+i.to_s+".jpg").open
+  avatar.save!
+end

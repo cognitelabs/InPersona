@@ -69,7 +69,7 @@ class PersonasController < ApplicationController
       :challenges => params[:challengesfield], :solutions => params[:helpfield], :gender => params[:gender], :age => params[:agerange], 
       :income => params[:income], :education => params[:education], :avatar_id => params[:avatar_id], :user_id => current_user.id, :access_level => params[:level])
     respond_to do |format|
-      format.json { render json: { :test => current_user} }
+      format.json { render json: { :persona => p} }
     end
   end
 
@@ -94,7 +94,7 @@ class PersonasController < ApplicationController
     p.access_level = params[:level]
     p.save
     respond_to do |format|
-      format.json { render json: { :test => "current_user updated"} }
+      format.json { render json: { :persona => p} }
     end
   end
 end
