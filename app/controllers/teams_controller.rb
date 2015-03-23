@@ -2,6 +2,7 @@ class TeamsController < ApplicationController
   before_action :authenticate_user!
   respond_to :json, :html
   load_and_authorize_resource :only => [:show, :add_member, :add_persona_to_team]
+  add_breadcrumb "All Teams", :teams_path
 
   def index
     respond_with Team.where(:owner_id => current_user.id)
@@ -15,6 +16,7 @@ class TeamsController < ApplicationController
   end
 
   def show
+    add_breadcrumb "Team #{Team.find(params[:id]).name}", team_path(params[:id])
     @t = Team.find(params[:id])
     authorize! :read, @t
     @owner = User.find(@t.owner_id)

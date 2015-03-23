@@ -4,9 +4,12 @@ class PersonasController < ApplicationController
   load_and_authorize_resource :only => [:show, :update]
   
   def new
+    add_breadcrumb "Creation of a new persona", new_persona_path
   end
 
   def index
+    add_breadcrumb "All Personas", :personas_path
+
     if current_user.nil? 
       respond_with Persona.where(:access_level => "Public")
 
@@ -28,6 +31,8 @@ class PersonasController < ApplicationController
   end
 
   def show
+    add_breadcrumb "All Personas", personas_path
+    add_breadcrumb "Persona: #{Persona.find(params[:id]).name}", persona_path(params[:id])
 
     if current_user.nil? 
       result = []
