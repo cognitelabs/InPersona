@@ -94,6 +94,7 @@ persona.controller('PersonaController', ['FileUploader', 'photoFactory', 'person
 
     personaFactory.create(persona_post).then(function(response) {
       ctrl.id_after_publish = response.data.persona.id;
+      window.location = response.data.redirect_to;
     });
   };
 
@@ -351,12 +352,12 @@ persona.controller('MainCtrl', function($scope, photoFactory) {
     $scope.showModal = !$scope.showModal;
   };
 
-  $scope.urls = ['/uploads/avatar/avatar/100/avatar1.jpg', '/uploads/avatar/avatar/101/avatar2.jpg', '/uploads/avatar/avatar/102/avatar3.jpg',
-    '/uploads/avatar/avatar/103/avatar4.jpg', '/uploads/avatar/avatar/104/avatar5.jpg', '/uploads/avatar/avatar/105/avatar6.jpg',
-    '/uploads/avatar/avatar/106/avatar7.jpg', '/uploads/avatar/avatar/107/avatar8.jpg', '/uploads/avatar/avatar/108/avatar9.jpg',
-    '/uploads/avatar/avatar/109/avatar10.jpg', '/uploads/avatar/avatar/110/avatar11.jpg', '/uploads/avatar/avatar/111/avatar12.jpg',
-    '/uploads/avatar/avatar/112/avatar13.jpg','/uploads/avatar/avatar/113/avatar14.jpg','/uploads/avatar/avatar/114/avatar15.jpg',
-    '/uploads/avatar/avatar/115/avatar16.jpg'
+  $scope.urls = ['/uploads/avatar/avatar/1/avatar1.jpg', '/uploads/avatar/avatar/2/avatar2.jpg', '/uploads/avatar/avatar/3/avatar3.jpg',
+    '/uploads/avatar/avatar/4/avatar4.jpg', '/uploads/avatar/avatar/5/avatar5.jpg', '/uploads/avatar/avatar/6/avatar6.jpg',
+    '/uploads/avatar/avatar/7/avatar7.jpg', '/uploads/avatar/avatar/8/avatar8.jpg', '/uploads/avatar/avatar/9/avatar9.jpg',
+    '/uploads/avatar/avatar/10/avatar10.jpg', '/uploads/avatar/avatar/11/avatar11.jpg', '/uploads/avatar/avatar/12/avatar12.jpg',
+    '/uploads/avatar/avatar/13/avatar13.jpg','/uploads/avatar/avatar/14/avatar14.jpg','/uploads/avatar/avatar/15/avatar15.jpg',
+    '/uploads/avatar/avatar/16/avatar16.jpg'
 
   ];
 

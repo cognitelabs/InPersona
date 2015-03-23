@@ -30,9 +30,10 @@ class PersonasController < ApplicationController
     end
   end
 
-  def show
+  def show    
+    @p  = Persona.find(params[:id])
     add_breadcrumb "All Personas", personas_path
-    add_breadcrumb "Persona: #{Persona.find(params[:id]).name}", persona_path(params[:id])
+    add_breadcrumb "Persona: #{@p.name}", persona_path(params[:id])
 
     if current_user.nil? 
       result = []
@@ -47,7 +48,6 @@ class PersonasController < ApplicationController
    
 
     @persona_id = params[:id]
-    @p  = Persona.find(params[:id])
     @avatar_url = @p.avatar.avatar.url
 
     @gfield = @p.goals.split("\n•")
@@ -74,7 +74,7 @@ class PersonasController < ApplicationController
       :challenges => params[:challengesfield], :solutions => params[:helpfield], :gender => params[:gender], :age => params[:agerange], 
       :income => params[:income], :education => params[:education], :avatar_id => params[:avatar_id], :user_id => current_user.id, :access_level => params[:level])
     respond_to do |format|
-      format.json { render json: { :persona => p} }
+      format.json { render json: { :persona => p, :redirect_to => url_for(p) } }
     end
   end
 

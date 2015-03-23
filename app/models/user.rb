@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   after_create :check_memberships
 
   def check_memberships
-    @t = TeamMembership.where(email: self.email)
+    @t = TeamMembership.where(user_email: self.email)
     if @t.any? 
       @t.each do |t|
         @t.user_id = self.id

@@ -102,20 +102,11 @@
         </div>
         <div class="col-md-4" > 
           <img ng-src="{{chosenPhoto}}" alt=""><br><br>
-          <div  ng-controller="dropdownCtrl as drop"  ng-show="pCtrl.show_edit_on_persona == 'true'" class='pull-left'>   
-            <ui-select ng-disabled="!pCtrl.persona.name || !pCtrl.persona.job || !pCtrl.persona.bio || !pCtrl.persona.goals || !pCtrl.persona.accessLevel" ng-model="drop.publishOption.selected" ng-change="pCtrl.selectPublishOption(drop.publishOption.selected)" search-enabled="false"  theme="bootstrap" style="width: 150px;">
-            <ui-select-match placeholder="Publish">{{$select.selected}}</ui-select-match>
-            <ui-select-choices repeat="option in drop.publishOptions">
-              <div ng-bind-html="option" ng-click="drop.setPrintOption(option)"></div>
-            </ui-select-choices>
-            </ui-select>        
-            The print option is {{drop.print}}
-            <button ng-click="pCtrl.publishUpdate()">Update the persona</button>
-          </div> 
+            <button ng-show="pCtrl.show_edit_on_persona == 'true'" ng-click="pCtrl.publishUpdate()">Update the persona</button>        
           <div >
               <ul class="rrssb-buttons clearfix">
                 <li class="rrssb-facebook">
-                  <a ng-href="https://www.facebook.com/sharer/sharer.php?u=http://inPersona.com/personas/{{pCtrl.id_after_publish}}" class="popup">
+                  <a ng-href="https://www.facebook.com/sharer/sharer.php?u=<%= url_for(@p) %>" class="popup">
                       <span class="rrssb-icon">
                           <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
                               <path d="M27.825,4.783c0-2.427-2.182-4.608-4.608-4.608H4.783c-2.422,0-4.608,2.182-4.608,4.608v18.434
@@ -127,7 +118,7 @@
                     </a>
                 </li>
                 <li class="rrssb-twitter">
-                    <a ng-href="http://twitter.com/home?status=Check%20out%20this%20persona%20on%20the%20website%20%20http://inPersona.com/personas/{{pCtrl.id_after_publish}}" class="popup">
+                    <a href="http://twitter.com/home?status=Check%20out%20this%20persona%20on%20the%20website%20%20<%= url_for(@p) %>" class="popup">
                         <span class="rrssb-icon">
                             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                  width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
@@ -144,7 +135,7 @@
                 </li>
               </ul>
             </div>        
-          <div><%= link_to "Save Persona as PDF", persona_path(@p, :format => "pdf") %> </div>        
+          <div><%= link_to "Export to PDF", persona_path(@p, :format => "pdf") %> </div>        
         </div>
         <div class="col-md-4">            
           <h3><strong>{{pCtrl.persona.name}}</strong></h3> 
