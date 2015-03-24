@@ -34,9 +34,9 @@ class User < ActiveRecord::Base
   def check_memberships
     @t = TeamMembership.where(user_email: self.email)
     if @t.any? 
-      @t.each do |t|
-        @t.user_id = self.id
-        @t.save
+      @t.each do |team_member|
+        team_member.user_id = self.id
+        team_member.save
       end
     end
   end
